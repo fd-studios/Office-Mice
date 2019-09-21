@@ -5,10 +5,12 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     Transform _transform;
+    Rigidbody2D _rigidbody;
     // Start is called before the first frame update
     void Start()
     {
         _transform = GetComponent<Transform>();
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class Movement : MonoBehaviour
         if (move.magnitude > 0)
         {
             move = move.normalized * .1f;
-            _transform.position += move;
+            _rigidbody.MovePosition(_rigidbody.position + new Vector2(move.x, move.y));
         }
 
         //rotate player sprite toward mouse pointer
