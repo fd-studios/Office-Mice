@@ -21,4 +21,8 @@ public class MenuHandlers : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
     }
+    public void HighScores()
+    {
+        SceneManager.LoadScene("HighScoresScene", LoadSceneMode.Single);
+    }
 }
