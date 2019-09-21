@@ -38,7 +38,7 @@ public class Movement : MonoBehaviour
         // TODO: snap movement to 45 deg increments so if using a 
         // joystick you don't get more accuracy in movement than
         // using the keyboard 
-        if (move.magnitude > 0) {
+        if (move.magnitude > 0.15) {
             move = move.normalized * .1f;
             _rigidbody.MovePosition(_rigidbody.position + new Vector2(move.x, move.y));
         }
@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour
         // Only change direction she's facing on input, prevents
         // her snapping back to pointing right when you release
         // the shoot keys. Also, snap to 45 degree shoot angle.
-        if (shoot.magnitude > 0) {
+        if (shoot.magnitude > 0.15) {
             var angle = Vector2.SignedAngle(Vector2.right, shoot);
             angle = Mathf.Round(angle/45.0f) * 45.0f;
             _transform.eulerAngles = new Vector3(0, 0, angle);
