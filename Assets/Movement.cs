@@ -7,6 +7,9 @@ public class Movement : MonoBehaviour
     Transform _transform;
     Rigidbody2D _rigidbody;
 
+    const float MIN_DIR_MAG  = 0.15f;
+    const float MIN_MOVE_MAG = 0.15f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,16 +20,29 @@ public class Movement : MonoBehaviour
         _transform.eulerAngles = Vector2.right;
     }
 
+    /// <summary>
+    /// Have the character face in the direction of this vector, checking
+    /// for minimum magnitude
+    /// </summary>
+    /// <param name="dir"></param>
+    void Face(Vector3 dir)
+    {
+        if (dir.magnitude > MIN_DIR_MAG)
+        {
+            var angle = Vector2.SignedAngle(Vector2.right, dir);
+            angle = Mathf.Round(angle / 45.0f) * 45.0f;
+            _transform.eulerAngles = new Vector3(0, 0, angle);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        // Horizontal axis is under Project Settings... Input... Axis
-        // The scale and gravity are set to 1000 so there's no (little)
-        // lag otherwise the GetAxis simulates a joystick and smooths out
-        // the transition. Apparently the "snap" setting being cleared means
-        // the position doesn't snap to zero before moving to a new angle if
-        // when switching to say left straight to right and not letting up
-        // in between.
+        // The Axis names are under Project Settings ... Input
+        // When two axis settings have the same name the one with
+        // the larger magnitude wins apparently. We have two of each:
+        // Horizontal, Vertical, ShootHoriz, ShootVert; one each for
+        // keyboard control and joystick
         var horiz = Input.GetAxis("Horizontal");
         var vert = Input.GetAxis("Vertical");
         var move = new Vector3(horiz, vert, 0);
@@ -35,21 +51,21 @@ public class Movement : MonoBehaviour
         var shootVert  = Input.GetAxis("ShootVert");
         var shoot      = new Vector3(shootHoriz, shootVert, 0);   
 
-        // TODO: snap movement to 45 deg increments so if using a 
+        // Snap movement to 45 deg increments so if using a 
         // joystick you don't get more accuracy in movement than
         // using the keyboard 
-        if (move.magnitude > 0.15) {
-            move = move.normalized * .1f;
+        if (move.magnitude > MIN_MOVE_MAG) {
+            Face(move);
+            var angle = Vector2.SignedAngle(Vector2.right, move);
+            // I'm sure there's a one step way to do this minus the trig, but
+            // I didn't spend enough time figuring out Quaterion
+            angle = Mathf.Round(angle / 45.0f) * 45.0f * Mathf.Deg2Rad;
+            move.x = Mathf.Cos(angle);
+            move.y = Mathf.Sin(angle);
+            move = move.normalized * 0.1f;
             _rigidbody.MovePosition(_rigidbody.position + new Vector2(move.x, move.y));
         }
-        
-        // Only change direction she's facing on input, prevents
-        // her snapping back to pointing right when you release
-        // the shoot keys. Also, snap to 45 degree shoot angle.
-        if (shoot.magnitude > 0.15) {
-            var angle = Vector2.SignedAngle(Vector2.right, shoot);
-            angle = Mathf.Round(angle/45.0f) * 45.0f;
-            _transform.eulerAngles = new Vector3(0, 0, angle);
-        }
+
+        Face(shoot);
     }
 }
