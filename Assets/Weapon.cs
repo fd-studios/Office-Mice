@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     public GameObject Player;
     public Transform FirePoint;
     public GameObject BulletPrefab;
+    private bool allowFiring = true;
 
     // Update is called once per frame
     void Update()
@@ -15,16 +16,22 @@ public class Weapon : MonoBehaviour
         Debug.Log(movement);
         if (movement != null && movement.Firing)
         {
-            Shoot();
+            StartCoroutine(Shoot());
         }
         if (Input.GetButtonDown("Fire1"))
         {
-            Shoot();
+            StartCoroutine(Shoot());
         }
     }
 
-    void Shoot()
+    IEnumerator Shoot()
     {
-        Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+        if (allowFiring)
+        {
+            allowFiring = false;
+            Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+            yield return new WaitForSeconds(0.2f);
+            allowFiring = true;
+        }
     }
 }

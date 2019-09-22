@@ -44,7 +44,10 @@ public class Movement : MonoBehaviour
             FireVector = new Vector3(0, 0, FireAngle);
             _transform.eulerAngles = FireVector;
         }
-        Firing = false;
+        else
+        {
+            Firing = false;
+        }
     }
 
     // Update is called once per frame
