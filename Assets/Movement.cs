@@ -7,6 +7,9 @@ public class Movement : MonoBehaviour
     Transform _transform;
     Rigidbody2D _rigidbody;
 
+    public bool SnapShoot = true;
+    public bool SnapMove = true;
+
     const float MIN_DIR_MAG  = 0.15f;
     const float MIN_MOVE_MAG = 0.15f;
 
@@ -30,7 +33,9 @@ public class Movement : MonoBehaviour
         if (dir.magnitude > MIN_DIR_MAG)
         {
             var angle = Vector2.SignedAngle(Vector2.right, dir);
-            angle = Mathf.Round(angle / 45.0f) * 45.0f;
+            if (SnapShoot)
+                angle = Mathf.Round(angle / 45.0f) * 45.0f;
+
             _transform.eulerAngles = new Vector3(0, 0, angle);
         }
     }
@@ -56,13 +61,17 @@ public class Movement : MonoBehaviour
         // using the keyboard 
         if (move.magnitude > MIN_MOVE_MAG) {
             Face(move);
-            var angle = Vector2.SignedAngle(Vector2.right, move);
-            // I'm sure there's a one step way to do this minus the trig, but
-            // I didn't spend enough time figuring out Quaterion
-            angle = Mathf.Round(angle / 45.0f) * 45.0f * Mathf.Deg2Rad;
-            move.x = Mathf.Cos(angle);
-            move.y = Mathf.Sin(angle);
-            move = move.normalized * 0.1f;
+            if (SnapMove)
+            {
+                var angle = Vector2.SignedAngle(Vector2.right, move);
+
+                // I'm sure there's a one step way to do this minus the trig, but
+                // I didn't spend enough time figuring out Quaterion
+                angle = Mathf.Round(angle / 45.0f) * 45.0f * Mathf.Deg2Rad;
+                move.x = Mathf.Cos(angle);
+                move.y = Mathf.Sin(angle);
+            }
+                move = move.normalized * 0.1f;
             _rigidbody.MovePosition(_rigidbody.position + new Vector2(move.x, move.y));
         }
 
