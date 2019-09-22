@@ -9,6 +9,9 @@ public class Movement : MonoBehaviour
 
     public bool SnapShoot = true;
     public bool SnapMove = true;
+    public bool Firing = false;
+    public float FireAngle = 0;
+    public Vector3 FireVector = Vector3.zero;
 
     const float MIN_DIR_MAG  = 0.15f;
     const float MIN_MOVE_MAG = 0.15f;
@@ -32,12 +35,16 @@ public class Movement : MonoBehaviour
     {
         if (dir.magnitude > MIN_DIR_MAG)
         {
+            Firing = true;
             var angle = Vector2.SignedAngle(Vector2.right, dir);
             if (SnapShoot)
                 angle = Mathf.Round(angle / 45.0f) * 45.0f;
 
-            _transform.eulerAngles = new Vector3(0, 0, angle);
+            FireAngle = angle;
+            FireVector = new Vector3(0, 0, FireAngle);
+            _transform.eulerAngles = FireVector;
         }
+        Firing = false;
     }
 
     // Update is called once per frame
