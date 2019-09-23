@@ -5,11 +5,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float Speed = 20f;
-    public int Damage = 50;
+    public int Damage = 40;
     public Rigidbody2D rb;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         rb.velocity = transform.right * Speed;
     }
@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
             {
                 mouse.TakeDamage(Damage);
             }
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

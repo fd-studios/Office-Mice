@@ -31,7 +31,13 @@ public class Weapon : MonoBehaviour
         var now = DateTime.Now;
         if (now - shotDelay > lastShot)
         {
-            Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+            GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
+            if (bullet != null)
+            {
+                bullet.transform.position = FirePoint.position;
+                bullet.transform.rotation = FirePoint.rotation;
+                bullet.SetActive(true);
+            }
             lastShot = now;
         }
     }
