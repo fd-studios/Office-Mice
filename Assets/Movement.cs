@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
     public bool Firing = false;
     public float FireAngle = 0;
     public Vector3 FireVector = Vector3.zero;
+    public float _walkSpeed = .1f;
 
     const float MIN_DIR_MAG  = 0.15f;
     const float MIN_MOVE_MAG = 0.15f;
@@ -94,7 +95,10 @@ public class Movement : MonoBehaviour
                 move.x = Mathf.Cos(angle);
                 move.y = Mathf.Sin(angle);
             }
-                move = move.normalized * 0.1f;
+            if (move.magnitude > 1)
+                move = move.normalized;
+
+            move *= _walkSpeed;
             _rigidbody.MovePosition(_rigidbody.position + new Vector2(move.x, move.y));
         }
 
