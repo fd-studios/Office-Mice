@@ -6,6 +6,9 @@ public class Movement : MonoBehaviour
 {
     Transform _transform;
     Rigidbody2D _rigidbody;
+    Player _player;
+    Vector3 _oldPosition = Vector3.zero;
+
 
     public bool SnapShoot = true;
     public bool SnapMove = true;
@@ -21,6 +24,7 @@ public class Movement : MonoBehaviour
     {
         _transform = GetComponent<Transform>();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _player = GetComponent<Player>();
 
         // Start the player off facing to the right
         _transform.eulerAngles = Vector2.right;
@@ -36,6 +40,7 @@ public class Movement : MonoBehaviour
         if (dir.magnitude > MIN_DIR_MAG)
         {
             Firing = true;
+            _player.State = Player.PlayerState.ShootingGun;
             var angle = Vector2.SignedAngle(Vector2.right, dir);
             if (SnapShoot)
                 angle = Mathf.Round(angle / 45.0f) * 45.0f;
@@ -47,6 +52,14 @@ public class Movement : MonoBehaviour
         else
         {
             Firing = false;
+            if(_transform.position != _oldPosition)
+            {
+                _player.State = Player.PlayerState.Walking;
+            }
+            else
+            {
+                _player.State = Player.PlayerState.Standing;
+            }
         }
     }
 
@@ -86,5 +99,7 @@ public class Movement : MonoBehaviour
         }
 
         Face(shoot);
+
+        _oldPosition = _transform.position;
     }
 }

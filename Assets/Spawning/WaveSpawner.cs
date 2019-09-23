@@ -6,9 +6,10 @@ using UnityEngine.UI;
 
 public partial class WaveSpawner : MonoBehaviour
 {
-    int nextWave = 0;
-    SpawnState state = SpawnState.Counting;
-    float searchCountdown = 1f;
+    int _nextWave = 0;
+    SpawnState _state = SpawnState.Counting;
+    float _searchCountdown = 1f;
+    uint _statMultiplier = 1;
 
     public Wave[] waves;
     public float timeBetweenWaves = 5f;
@@ -25,7 +26,7 @@ public partial class WaveSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (state == SpawnState.Waiting)
+        if (_state == SpawnState.Waiting)
         {
             if (EnemiesAlive())
             {
@@ -35,47 +36,49 @@ public partial class WaveSpawner : MonoBehaviour
         }
         if (waveCountDown <= 0)
         {
-            if (state != SpawnState.Spawning)
+            if (_state != SpawnState.Spawning)
             {
-                StartCoroutine(SpawnWaves(waves[nextWave]));
+                StartCoroutine(SpawnWaves(waves[_nextWave]));
             }
         }
         else
         {
             waveCountDown -= Time.deltaTime;
-            Label.text = $"Wave {nextWave + 1}: {Mathf.FloorToInt(waveCountDown)}";
+            Label.text = $"Wave {_nextWave + 1}: {Mathf.FloorToInt(waveCountDown)}";
         }
-        Label.gameObject.SetActive(state == SpawnState.Counting);
+        Label.gameObject.SetActive(_state == SpawnState.Counting);
     }
 
     IEnumerator SpawnWaves(Wave wave)
     {
         Debug.Log($"Spawning Wave: {wave.name}");
-        state = SpawnState.Spawning;
+        _state = SpawnState.Spawning;
 
-        for (int i = 0; i < wave.count; i++)
+        for (int i = 0; i < wave.count * _statMultiplier; i++)
         {
             SpawnEnemy(wave.enemy);
             yield return new WaitForSeconds(1 / wave.rate);
         }
 
-        state = SpawnState.Waiting;
+        _state = SpawnState.Waiting;
         yield break;
     }
 
-    void SpawnEnemy(Transform enemy)
+    void SpawnEnemy(Enemy enemy)
     {
         Debug.Log($"Spawning enemy: ");
         var spawnPoints = SpawnPoints[Random.Range(1,4)];
-        Instantiate(enemy, spawnPoints.transform.position, spawnPoints.transform.rotation);
+        //This didn't work
+        //enemy.StatMultiplier = _statMultiplier;
+        Instantiate(enemy.transform, spawnPoints.transform.position, spawnPoints.transform.rotation);
     }
 
     bool EnemiesAlive()
     {
-        searchCountdown -= Time.deltaTime;
-        if (searchCountdown <= 0)
+        _searchCountdown -= Time.deltaTime;
+        if (_searchCountdown <= 0)
         {
-            searchCountdown = 1f;
+            _searchCountdown = 1f;
             return FindObjectsOfType<Mouse>().Length > 0;
         }
         return true;
@@ -83,9 +86,13 @@ public partial class WaveSpawner : MonoBehaviour
 
     void WaveCompleted()
     {
-        state = SpawnState.Counting;
+        _state = SpawnState.Counting;
         waveCountDown = timeBetweenWaves;
-        nextWave++;
-        if (nextWave >= waves.Length) nextWave = 0;
+        _nextWave++;
+        if (_nextWave >= waves.Length)
+        {
+            _nextWave = 0;
+            _statMultiplier += 1;
+        }
     }
 }

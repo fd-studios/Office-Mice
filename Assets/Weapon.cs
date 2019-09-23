@@ -5,17 +5,22 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public GameObject Player;
     public Transform FirePoint;
     public GameObject BulletPrefab;
-    private DateTime lastShot;
-    private TimeSpan shotDelay = new TimeSpan(0, 0, 0, 0, 250);
+    DateTime _lastShot;
+    TimeSpan _shotDelay;
+    Player _player;
 
+    private void Start()
+    {
+        _player = GetComponent<Player>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        var movement = Player.GetComponent<Movement>();
+        _shotDelay = new TimeSpan(0, 0, 0, 0, Mathf.RoundToInt(1000f / _player.FiringRate));
+        var movement = GetComponent<Movement>();
         if (movement != null && movement.Firing)
         {
             Shoot();
@@ -29,7 +34,7 @@ public class Weapon : MonoBehaviour
     void Shoot()
     {
         var now = DateTime.Now;
-        if (now - shotDelay > lastShot)
+        if (now - _shotDelay > _lastShot)
         {
             GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
             if (bullet != null)
@@ -38,7 +43,7 @@ public class Weapon : MonoBehaviour
                 bullet.transform.rotation = FirePoint.rotation;
                 bullet.SetActive(true);
             }
-            lastShot = now;
+            _lastShot = now;
         }
     }
 }

@@ -2,47 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mouse : MonoBehaviour, IEnemy
+public class Mouse : Enemy
 {
     Vector2 _movement;
-    float someScale;
+    float _someScale;
 
     public int Health = 120;
 
     public GameObject hitEffect;
     public GameObject deathEffect;
     public Rigidbody2D rb;
-    public float speed = 5f;
-
-    public string Name { get; set; }
-    public Transform Transform { get; set; }
-
+    public float Speed = 5f;
 
     // Use this for initialization
     void Start()
     {
-        Transform = GetComponentInChildren<Transform>();
         rb = GetComponent<Rigidbody2D>();
-        someScale = transform.localScale.x;
+        _someScale = transform.localScale.x;
+        Health = 120 * (int)StatMultiplier;
+        Speed = 5 * StatMultiplier;
+        Debug.Log($"Health:{Health} Speed:{Speed}");
     }
 
     void Update()
     {
         _movement = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-        Transform.eulerAngles = _movement;
+        gameObject.transform.eulerAngles = _movement;
         if (rb.velocity.x >= 0)
         {
-            transform.localScale = new Vector2(-someScale, transform.localScale.y);
+            transform.localScale = new Vector2(-_someScale, transform.localScale.y);
         }
         else
         {
-            transform.localScale = new Vector2(someScale, transform.localScale.y);
+            transform.localScale = new Vector2(_someScale, transform.localScale.y);
         }
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(_movement * speed);
+        rb.AddForce(_movement * Speed);
     }
 
     public void TakeDamage(int damage)
@@ -68,7 +66,7 @@ public class Mouse : MonoBehaviour, IEnemy
         Destroy(gameObject);
         var player = GameObject.FindGameObjectWithTag("Player");
         Score score = player.GetComponentInChildren<Score>();
-        score.IncreaseScore(1);
+        score.IncreaseScore(1 * StatMultiplier);
         Destroy(deadMouse, 2f);
     }
 }

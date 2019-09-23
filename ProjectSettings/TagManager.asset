@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Bullet
+  - Upgrade
   layers:
   - Default
   - TransparentFX

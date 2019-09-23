@@ -5,7 +5,7 @@ using UnityEngine;
 public class Wave
 {
     public string name;
-    public Transform enemy;
+    public Enemy enemy;
     public int count;
     public float rate;
 }

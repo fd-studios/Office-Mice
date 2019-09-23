@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    uint score = 0;
+    uint _score = 0;
     public Text Label;
 
     // Start is called before the first frame update
@@ -17,11 +17,11 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Label.text = $"Score: {score}";
+        Label.text = $"Score: {_score}";
     }
 
     public void IncreaseScore(uint amount)
     {
-        score += amount;
+        _score += amount;
     }
 }

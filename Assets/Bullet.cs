@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name != "Player")
+        if (collision.tag != "Player" && collision.tag != "Upgrade")
         {
             var mouse = collision.GetComponent<Mouse>();
             if (mouse != null)

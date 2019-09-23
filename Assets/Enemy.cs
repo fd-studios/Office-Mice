@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public interface IEnemy
+public class Enemy : MonoBehaviour
 {
-    string Name { get; set; }
-    Transform Transform { get; set; }
+    public string Name { get; set; }
+    public uint StatMultiplier { get; set; } = 1;
 }
