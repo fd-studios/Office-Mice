@@ -17,7 +17,7 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Label.text = $"Score: {_score}";
+        Label.text = _score.ToString();
     }
 
     public void IncreaseScore(uint amount)
