@@ -6,12 +6,24 @@ public class Bullet : MonoBehaviour
 {
     public float Speed = 20f;
     public int Damage = 40;
-    public Rigidbody2D rb;
+    Rigidbody2D _rigidbody;
 
-    // Start is called before the first frame update
+    void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
     void OnEnable()
     {
-        rb.velocity = transform.right * Speed;
+        _rigidbody.velocity = transform.right * Speed;
+    }
+
+    private void Update()
+    {
+        if(_rigidbody.velocity.magnitude < 1f)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
