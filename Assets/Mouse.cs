@@ -11,6 +11,7 @@ public class Mouse : Enemy
     public GameObject hitEffect;
     public GameObject deathEffect;
     public Rigidbody2D rb;
+    public AudioSource Shot;
 
     // Use this for initialization
     void Start()
@@ -50,6 +51,7 @@ public class Mouse : Enemy
 
     public void TakeDamage(int damage)
     {
+        if (Shot != null) Shot.Play();
         _beenHit = true;
         StartRush();
         var position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
@@ -74,6 +76,7 @@ public class Mouse : Enemy
     IEnumerator EndRush()
     {
         yield return new WaitForSeconds(20);
+        BaseSpeed -= 30;
         yield break;
     }
 

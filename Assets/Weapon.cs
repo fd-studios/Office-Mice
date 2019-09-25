@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     DateTime _lastShot;
     TimeSpan _shotDelay;
     Player _player;
+    public AudioSource FiringSound;
 
     private void Start()
     {
@@ -43,6 +44,7 @@ public class Weapon : MonoBehaviour
                 bullet.transform.rotation = FirePoint.rotation;
                 bullet.SetActive(true);
             }
+            if (FiringSound != null) FiringSound.Play();
             _lastShot = now;
         }
     }

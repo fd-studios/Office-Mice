@@ -7,14 +7,10 @@ public class Bullet : MonoBehaviour
     public float Speed = 20f;
     public int Damage = 40;
     Rigidbody2D _rigidbody;
-
-    void Start()
-    {
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
-
+    
     void OnEnable()
     {
+        _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.velocity = transform.right * Speed;
     }
 

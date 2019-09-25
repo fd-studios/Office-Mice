@@ -10,17 +10,20 @@ public partial class WaveSpawner : MonoBehaviour
     SpawnState _state = SpawnState.Counting;
     float _searchCountdown = 1f;
     uint _statMultiplier = 1;
+    int _countDown;
 
     public Wave[] waves;
     public float timeBetweenWaves = 5f;
     public float waveCountDown;
     public GameObject[] SpawnPoints;
     public Text Label;
+    public AudioSource[] CountDown = new AudioSource[11];
 
     // Start is called before the first frame update
     void Start()
     {
         waveCountDown = timeBetweenWaves;
+        _countDown = Mathf.RoundToInt(waveCountDown);
     }
 
     // Update is called once per frame
@@ -43,10 +46,22 @@ public partial class WaveSpawner : MonoBehaviour
         }
         else
         {
-            waveCountDown -= Time.deltaTime;
-            Label.text = $"Wave {_nextWave + 1}: {Mathf.FloorToInt(waveCountDown)}";
+            waveCountDown -= Time.smoothDeltaTime;
+            StartCoroutine(UpdateCountDown(Mathf.FloorToInt(waveCountDown)));
         }
         Label.gameObject.SetActive(_state == SpawnState.Counting);
+    }
+
+    IEnumerator UpdateCountDown(int countDown)
+    {
+        if (countDown >= 0 && _countDown != countDown)
+        {
+            _countDown = countDown;
+            yield return new WaitForSeconds(1);
+            Label.text = $"Wave {_nextWave + 1}: {_countDown}";
+            CountDown[_countDown].Play();
+        }
+        yield break;
     }
 
     IEnumerator SpawnWaves(Wave wave)
