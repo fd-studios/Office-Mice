@@ -12,6 +12,7 @@ public class Mouse : Enemy
     public GameObject deathEffect;
     public Rigidbody2D rb;
     public AudioSource Shot;
+    public int Damage = 10;
 
     // Use this for initialization
     void Start()
@@ -90,5 +91,17 @@ public class Mouse : Enemy
         Score score = player.GetComponentInChildren<Score>();
         score.IncreaseScore(1 * StatMultiplier);
         Destroy(deadMouse, 2f);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            var player = collision.GetComponent<Player>();
+            if (player != null)
+            {
+                player.TakeDamage(Damage);
+            }
+        }
     }
 }

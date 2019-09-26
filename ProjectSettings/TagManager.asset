@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - Bullet
   - Upgrade
+  - Ammo
   layers:
   - Default
   - TransparentFX

@@ -58,8 +58,12 @@ public partial class WaveSpawner : MonoBehaviour
         {
             _countDown = countDown;
             yield return new WaitForSeconds(1);
-            Label.text = $"Wave {_nextWave + 1}: {_countDown}";
-            CountDown[_countDown].Play();
+
+            if(_nextWave >= 0)
+            {
+                CountDown[_countDown].Play();
+                Label.text = $"Wave {_nextWave + 1}: {_countDown}";
+            }
         }
         yield break;
     }

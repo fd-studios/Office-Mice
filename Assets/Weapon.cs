@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
     void Shoot()
     {
         var now = DateTime.Now;
-        if (now - _shotDelay > _lastShot)
+        if (now - _shotDelay > _lastShot && _player.Ammo > 0)
         {
             GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
             if (bullet != null)
@@ -45,6 +45,7 @@ public class Weapon : MonoBehaviour
                 bullet.SetActive(true);
             }
             if (FiringSound != null) FiringSound.Play();
+            _player.OnShotFired();
             _lastShot = now;
         }
     }
