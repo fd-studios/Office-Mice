@@ -13,7 +13,7 @@ public partial class WaveSpawner : MonoBehaviour
     int _countDown;
 
     public Wave[] waves;
-    public float timeBetweenWaves = 5f;
+    public float timeBetweenWaves = 3f;
     public float waveCountDown;
     public GameObject[] SpawnPoints;
     public Text Label;
@@ -56,7 +56,6 @@ public partial class WaveSpawner : MonoBehaviour
     {
         if (countDown >= 0 && _countDown != countDown)
         {
-            _countDown = countDown;
             yield return new WaitForSeconds(1);
 
             if(_nextWave >= 0)
@@ -64,6 +63,7 @@ public partial class WaveSpawner : MonoBehaviour
                 CountDown[_countDown].Play();
                 Label.text = $"Wave {_nextWave + 1}: {_countDown}";
             }
+            _countDown = countDown;
         }
         yield break;
     }
