@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoresHandler : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class ScoresHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    public void Back()
+    {
+        SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
     }
 }
