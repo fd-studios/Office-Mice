@@ -33,7 +33,13 @@ public class Mouse : Enemy
         {
             _movement = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         }
-        gameObject.transform.eulerAngles = _movement;
+
+
+        var angle = Vector2.SignedAngle(Vector2.down, rb.velocity.normalized);
+        var rotateVector = new Vector3(0, 0, angle);
+        gameObject.transform.eulerAngles = rotateVector;
+
+
         if (rb.velocity.x >= 0)
         {
             transform.localScale = new Vector2(-_someScale, transform.localScale.y);

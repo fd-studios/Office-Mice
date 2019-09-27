@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 8812966196177646424}
   - component: {fileID: 8812966196177646425}
   - component: {fileID: 8812966196177646438}
+  - component: {fileID: 95616924660584378}
   m_Layer: 0
   m_Name: Mouse
   m_TagString: Untagged
@@ -164,7 +165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8812966196177646439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.7059898, y: 0.90844536, z: 0.04139426}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2115728861138201210}
@@ -209,7 +210,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: eac55ca99871f4f488d91153d6e3d312, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce2236af9db0c5d46b7a1af6d5b437d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -258,7 +259,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.58, y: 0.35}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.59, y: 0.35}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -284,3 +285,24 @@ MonoBehaviour:
   deathEffect: {fileID: 3496665257417689101, guid: 5a1ff76a01c693544a314c05d249c1d7,
     type: 3}
   rb: {fileID: 0}
+  Shot: {fileID: 0}
+  Damage: 10
+--- !u!95 &95616924660584378
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8812966196177646439}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3dc469287c0a12047b414493460e05a7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
