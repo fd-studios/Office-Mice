@@ -19,6 +19,11 @@ public class Mouse : Enemy
     {
         rb = GetComponent<Rigidbody2D>();
         _someScale = transform.localScale.x;
+    }
+
+    void OnEnable()
+    {
+        Speed = BaseSpeed * StatMultiplier;
         Health = BaseHealth * (int)StatMultiplier;
         Debug.Log($"Health:{Health} Speed:{Speed}");
     }
@@ -46,7 +51,6 @@ public class Mouse : Enemy
 
     void FixedUpdate()
     {
-        Speed = BaseSpeed * StatMultiplier;
         rb.AddForce(_movement * Speed);
     }
 
