@@ -95,10 +95,19 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log($"Game Over");
-        Ammo = BaseAmmo;
+        Debug.Log($"Player died");
         gameObject.SetActive(false);
-        _game.Respwan(gameObject, RespawnDelay);
+        _game.Respwan(gameObject, RespawnDelay, OnRespawn);
+    }
+
+    public void OnRespawn()
+    {
+        Debug.Log($"Player respawned");
+        _hitDelay = new TimeSpan(0, 0, 0, 0, 500);
+        Health = BaseHealth;
+        Ammo = BaseAmmo;
+        transform.position = new Vector3(0, 1, -1);
+        transform.rotation = new Quaternion();
     }
 
     public void AddAmmo(int ammo)

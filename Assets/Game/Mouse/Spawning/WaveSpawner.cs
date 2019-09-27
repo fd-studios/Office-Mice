@@ -9,7 +9,7 @@ public partial class WaveSpawner : MonoBehaviour
     int _nextWave = 0;
     SpawnState _state = SpawnState.Counting;
     float _searchCountdown = 1f;
-    uint _statMultiplier = 1;
+    uint _statMultiplier = 2;
     int _countDown;
 
     public Wave[] waves;
@@ -61,7 +61,7 @@ public partial class WaveSpawner : MonoBehaviour
             if(_nextWave >= 0)
             {
                 CountDown[_countDown].Play();
-                Label.text = $"Wave {_nextWave + 1}: {_countDown}";
+                Label.text = $"Wave {_nextWave + 1}: {_countDown + 1}";
             }
             _countDown = countDown;
         }
@@ -86,9 +86,9 @@ public partial class WaveSpawner : MonoBehaviour
     void SpawnEnemy(Enemy enemy)
     {
         Debug.Log($"Spawning enemy: ");
-        var spawnPoints = SpawnPoints[Random.Range(1,4)];
-        //This didn't work
-        //enemy.StatMultiplier = _statMultiplier;
+        var spawnPoints = SpawnPoints[Random.Range(1, SpawnPoints.Length)-1];
+        enemy.StatMultiplier = _statMultiplier;
+        Debug.Log($"enemy:{enemy.StatMultiplier}");
         Instantiate(enemy.transform, spawnPoints.transform.position, spawnPoints.transform.rotation);
     }
 

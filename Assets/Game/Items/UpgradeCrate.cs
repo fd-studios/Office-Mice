@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeCrate : AmmoCrate
+public class UpgradeCrate : PowerUp
 {
+    public int Ammo = 100;
     public float Duration = 10f;
 
     public override void OnPickup(Player player)
     {
-        base.OnPickup(player);
+        player.AddAmmo(Ammo);
         player.UpgradeWeapon(Duration);
     }
 }

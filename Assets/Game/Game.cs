@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,17 +17,16 @@ public class Game : MonoBehaviour
 
     }
 
-    public void Respwan(GameObject obj, int seconds)
+    public void Respwan(GameObject obj, int seconds, Action callback = null)
     {
-        StartCoroutine(_respawn(obj, seconds));
+        StartCoroutine(_respawn(obj, seconds, callback));
     }
 
-    IEnumerator _respawn(GameObject obj, int seconds)
+    IEnumerator _respawn(GameObject obj, int seconds, Action callback = null)
     {
         yield return new WaitForSeconds(seconds);
         obj.SetActive(true);
-        obj.transform.position = new Vector3(0, 1, -1);
-        obj.transform.rotation = new Quaternion();
+        callback?.Invoke();
         yield break;
     }
 }
