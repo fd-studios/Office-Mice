@@ -9,7 +9,7 @@ public partial class WaveSpawner : MonoBehaviour
     int _nextWave = 0;
     SpawnState _state = SpawnState.Counting;
     float _searchCountdown = 1f;
-    uint _statMultiplier = 2;
+    uint _statMultiplier = 1;
     int _countDown;
 
     public Wave[] waves;

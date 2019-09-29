@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Mouse : Enemy
 {
-    Vector2 _movement;
+    Vector2 _direction;
     float _someScale;
     bool _beenHit = false;
+    GameObject player;
 
     public GameObject hitEffect;
     public GameObject deathEffect;
@@ -18,6 +19,7 @@ public class Mouse : Enemy
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        player = GameObject.FindGameObjectWithTag("Player");
         _someScale = transform.localScale.x;
     }
 
@@ -32,18 +34,18 @@ public class Mouse : Enemy
     {
         if (_beenHit)
         {
-            _movement = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            var heading = player.transform.position - transform.position;
+            var distance = heading.magnitude;
+            _direction = heading / distance;
         }
         else
         {
-            _movement = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            _direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         }
-
 
         var angle = Vector2.SignedAngle(Vector2.down, rb.velocity.normalized);
         var rotateVector = new Vector3(0, 0, angle);
-        gameObject.transform.eulerAngles = rotateVector;
-
+        transform.eulerAngles = rotateVector;
 
         if (rb.velocity.x >= 0)
         {
@@ -57,7 +59,7 @@ public class Mouse : Enemy
 
     void FixedUpdate()
     {
-        rb.AddForce(_movement * Speed);
+        rb.AddForce(_direction * Speed);
     }
 
     public void TakeDamage(int damage)
@@ -80,14 +82,14 @@ public class Mouse : Enemy
 
     void StartRush()
     {
-        BaseSpeed += 30;
+        Speed += 20;
         StartCoroutine(EndRush());
     }
 
     IEnumerator EndRush()
     {
         yield return new WaitForSeconds(20);
-        BaseSpeed -= 30;
+        Speed -= 20;
         yield break;
     }
 
