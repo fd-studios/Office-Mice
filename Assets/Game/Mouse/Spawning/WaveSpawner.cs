@@ -11,11 +11,11 @@ public partial class WaveSpawner : MonoBehaviour
     float _searchCountdown = 1f;
     uint _statMultiplier = 1;
     int _countDown;
+    GameObject[] _spawnPoints;
 
     public Wave[] waves;
     public float timeBetweenWaves = 3f;
     public float waveCountDown;
-    public GameObject[] SpawnPoints;
     public Text Label;
     public AudioSource[] CountDown = new AudioSource[11];
 
@@ -24,6 +24,7 @@ public partial class WaveSpawner : MonoBehaviour
     {
         waveCountDown = timeBetweenWaves;
         _countDown = Mathf.RoundToInt(waveCountDown);
+        _spawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
     }
 
     // Update is called once per frame
@@ -86,7 +87,7 @@ public partial class WaveSpawner : MonoBehaviour
     void SpawnEnemy(Enemy enemy)
     {
         Debug.Log($"Spawning enemy: ");
-        var spawnPoints = SpawnPoints[Random.Range(1, SpawnPoints.Length)-1];
+        var spawnPoints = _spawnPoints[Random.Range(1, _spawnPoints.Length)-1];
         enemy.StatMultiplier = _statMultiplier;
         Debug.Log($"enemy:{enemy.StatMultiplier}");
         Instantiate(enemy.transform, spawnPoints.transform.position, spawnPoints.transform.rotation);
