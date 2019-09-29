@@ -20,10 +20,6 @@ public class CameraController : MonoBehaviour
         if(_target != null)
         {
             var diff = _target.position - _self.position;
-            if (Math.Abs(_self.position.x + diff.x) > 20)
-                diff.x = 0;
-            if (Math.Abs(_self.position.y + diff.y) > 20)
-                diff.y = 0;
             _self.Translate(diff.x, diff.y, 0);
         }
     }
