@@ -12,6 +12,8 @@ public class Movement : MonoBehaviour
 
     public bool SnapShoot = true;
     public bool SnapMove = true;
+    public bool MouseShoot = false;
+
     public bool Firing = false;
     public float FireAngle = 0;
     public Vector3 FireVector = Vector3.zero;
@@ -38,6 +40,25 @@ public class Movement : MonoBehaviour
     /// <param name="dir"></param>
     void Face(Vector3 dir)
     {
+        if (MouseShoot)
+        {
+            //rotate player sprite toward mouse pointer
+            var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var vector = mouse - _transform.position;
+            //get angle against the default sprite direction
+            var angle = Vector2.SignedAngle(Vector3.right, vector);
+            _transform.eulerAngles = new Vector3(0, 0, angle);
+
+            Firing = Input.GetMouseButton(0);
+            if (Firing)
+                _player.State = Player.PlayerState.ShootingGun;
+            else
+                _player.State = Player.PlayerState.Walking;
+            return;
+        }
+
+        
+
         if (dir.magnitude > MIN_DIR_MAG)
         {
             Firing = true;
