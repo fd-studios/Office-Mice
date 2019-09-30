@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     Game _game;
     SpriteRenderer _spriteRenderer;
+    Movement _movement;
     bool upgradedWeapon = false;
     DateTime _lastHit;
     TimeSpan _hitDelay;
@@ -31,7 +32,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         _game = GameObject.FindObjectOfType<Game>();
-        _spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _movement = GetComponent<Movement>();
         _hitDelay = new TimeSpan(0, 0, 0, 0, 500);
         Health = BaseHealth;
         Ammo = BaseAmmo;
@@ -90,6 +92,7 @@ public class Player : MonoBehaviour
             {
                 Die();
             }
+            _movement.Run();
         }
     }
 

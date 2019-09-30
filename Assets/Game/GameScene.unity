@@ -90950,5 +90950,10 @@ PrefabInstance:
       propertyPath: Label
       value: 
       objectReference: {fileID: 1085168766}
+    - target: {fileID: 9094159647322337062, guid: f72bfda5d633abc42a98f11be9d2b4f7,
+        type: 3}
+      propertyPath: RunningSpeed
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f72bfda5d633abc42a98f11be9d2b4f7, type: 3}

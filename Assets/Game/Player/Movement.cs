@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     Rigidbody2D _rigidbody;
     Player _player;
     Vector3 _oldPosition = Vector3.zero;
+    float _speed;
 
 
     public bool SnapShoot = true;
@@ -17,7 +18,8 @@ public class Movement : MonoBehaviour
     public bool Firing = false;
     public float FireAngle = 0;
     public Vector3 FireVector = Vector3.zero;
-    public float _walkSpeed = .1f;
+    public float WalkingSpeed = .1f;
+    public float RunningSpeed = .2f;
 
     const float MIN_DIR_MAG  = 0.15f;
     const float MIN_MOVE_MAG = 0.15f;
@@ -28,6 +30,7 @@ public class Movement : MonoBehaviour
         _transform = GetComponent<Transform>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
+        _speed = WalkingSpeed;
 
         // Start the player off facing to the right
         _transform.eulerAngles = Vector2.right;
@@ -119,12 +122,25 @@ public class Movement : MonoBehaviour
             if (move.magnitude > 1)
                 move = move.normalized;
 
-            move *= _walkSpeed;
+            move *= _speed;
             _rigidbody.MovePosition(_rigidbody.position + new Vector2(move.x, move.y));
         }
 
         Face(shoot);
 
         _oldPosition = _transform.position;
+    }
+
+    public void Run()
+    {
+        _speed = RunningSpeed;
+        StartCoroutine(Tired());
+    }
+
+    IEnumerator Tired()
+    {
+        yield return new WaitForSeconds(5);
+        _speed = WalkingSpeed;
+        yield break;
     }
 }

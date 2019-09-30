@@ -32,10 +32,10 @@ public class Mouse : Enemy
 
     void Update()
     {
-        if (_beenHit)
+        var heading = player.transform.position - transform.position;
+        var distance = heading.magnitude;
+        if (_beenHit || distance < 10)
         {
-            var heading = player.transform.position - transform.position;
-            var distance = heading.magnitude;
             _direction = heading / distance;
         }
         else
