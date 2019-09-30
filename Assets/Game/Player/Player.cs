@@ -119,4 +119,10 @@ public class Player : MonoBehaviour
     {
         Ammo -= 1;
     }
+
+    public void AddHealth(int health)
+    {
+        Health += health;
+        if (Health > BaseHealth) Health = BaseHealth;
+    }
 }
