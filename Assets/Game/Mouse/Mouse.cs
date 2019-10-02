@@ -14,6 +14,7 @@ public class Mouse : Enemy
     public Rigidbody2D rb;
     public AudioSource Shot;
     public int Damage = 10;
+    public int RushIncrement = 15;
 
     // Use this for initialization
     void Start()
@@ -59,7 +60,7 @@ public class Mouse : Enemy
 
     void FixedUpdate()
     {
-        rb.AddForce(_direction * Speed);
+        rb.AddForce(_direction * System.Math.Min(Speed, RushIncrement * 3));
     }
 
     public void TakeDamage(int damage)
@@ -68,7 +69,7 @@ public class Mouse : Enemy
         _beenHit = true;
         StartRush();
         var position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-        var effect = Instantiate(hitEffect, position, Quaternion.identity);
+        var effect = Instantiate(hitEffect, position, transform.rotation);
         effect.transform.localScale = transform.localScale;
         Health -= damage;
         Debug.Log($"Mouse Hit Health:{Health}");
@@ -82,14 +83,14 @@ public class Mouse : Enemy
 
     void StartRush()
     {
-        Speed += 20;
+        Speed += RushIncrement;
         StartCoroutine(EndRush());
     }
 
     IEnumerator EndRush()
     {
         yield return new WaitForSeconds(20);
-        Speed -= 20;
+        Speed -= RushIncrement;
         yield break;
     }
 
