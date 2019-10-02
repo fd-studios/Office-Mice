@@ -123,9 +123,8 @@ public partial class WaveSpawner : MonoBehaviour
 
     IEnumerator StartRush(Wave wave)
     {
-        Debug.Log($"Rush In {wave.RushTimer}");
+        if(_state == SpawnState.Counting) yield break;
         yield return new WaitForSeconds(wave.RushTimer);
-        Debug.Log($"Run Run Run");
         if(RushAnnouncement != null) RushAnnouncement.Play();
         var enemeies = GameObject.FindObjectsOfType<Enemy>();
         foreach (var enemy in enemeies)
