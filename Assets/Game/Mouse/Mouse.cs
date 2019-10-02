@@ -6,21 +6,23 @@ public class Mouse : Enemy
 {
     Vector2 _direction;
     float _someScale;
-    bool _beenHit = false;
-    GameObject player;
+    bool _beenHit;
+    GameObject playerObj;
+    Player player;
 
     public GameObject hitEffect;
     public GameObject deathEffect;
     public Rigidbody2D rb;
     public AudioSource Shot;
     public int Damage = 10;
-    public int RushIncrement = 15;
+    public int RushIncrement = 10;
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        playerObj = GameObject.FindGameObjectWithTag("Player");
+        player = playerObj.GetComponent<Player>();
         _someScale = transform.localScale.x;
     }
 
@@ -33,7 +35,7 @@ public class Mouse : Enemy
 
     void Update()
     {
-        var heading = player.transform.position - transform.position;
+        var heading = playerObj.transform.position - transform.position;
         var distance = heading.magnitude;
         if (_beenHit || distance < 10)
         {
@@ -60,7 +62,7 @@ public class Mouse : Enemy
 
     void FixedUpdate()
     {
-        rb.AddForce(_direction * System.Math.Min(Speed, RushIncrement * 3));
+        rb.AddForce(_direction * System.Math.Min(Speed, RushIncrement));
     }
 
     public void TakeDamage(int damage)
@@ -84,12 +86,14 @@ public class Mouse : Enemy
     void StartRush()
     {
         Speed += RushIncrement;
+        // cap the max speed
+        if (Speed > 30f) Speed = 30f;
         StartCoroutine(EndRush());
     }
 
     IEnumerator EndRush()
     {
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(5);
         Speed -= RushIncrement;
         yield break;
     }
@@ -100,7 +104,6 @@ public class Mouse : Enemy
         var deadMouse = Instantiate(deathEffect, transform.position, Quaternion.identity);
         deadMouse.transform.localScale = transform.localScale;
         Destroy(gameObject);
-        var player = GameObject.FindGameObjectWithTag("Player");
         Score score = player.GetComponentInChildren<Score>();
         score.IncreaseScore(1 * StatMultiplier);
         Destroy(deadMouse, 2f);
@@ -110,7 +113,6 @@ public class Mouse : Enemy
     {
         if (collision.tag == "Player")
         {
-            var player = collision.GetComponent<Player>();
             if (player != null)
             {
                 player.TakeDamage(Damage);
