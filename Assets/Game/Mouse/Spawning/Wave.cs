@@ -4,8 +4,9 @@ using UnityEngine;
 [Serializable]
 public class Wave
 {
-    public string name;
-    public Enemy enemy;
-    public int count;
-    public float rate;
+    public string Name;
+    public Enemy Enemy;
+    public int Count;
+    public float Rate;
+    public int RushTimer;
 }
