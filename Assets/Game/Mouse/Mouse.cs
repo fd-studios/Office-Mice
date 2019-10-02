@@ -7,6 +7,7 @@ public class Mouse : Enemy
     Vector2 _direction;
     float _someScale;
     bool _beenHit;
+    bool _targetPlayer;
     GameObject playerObj;
     Player player;
 
@@ -16,6 +17,7 @@ public class Mouse : Enemy
     public AudioSource Shot;
     public int Damage = 10;
     public int RushIncrement = 10;
+    public float MaxSpeed = 30f;
 
     // Use this for initialization
     void Start()
@@ -37,7 +39,7 @@ public class Mouse : Enemy
     {
         var heading = playerObj.transform.position - transform.position;
         var distance = heading.magnitude;
-        if (_beenHit || distance < 10)
+        if (_beenHit || distance < 10 || _targetPlayer)
         {
             _direction = heading / distance;
         }
@@ -87,7 +89,7 @@ public class Mouse : Enemy
     {
         Speed += RushIncrement;
         // cap the max speed
-        if (Speed > 30f) Speed = 30f;
+        if (Speed > MaxSpeed) Speed = MaxSpeed;
         StartCoroutine(EndRush());
     }
 
@@ -118,5 +120,12 @@ public class Mouse : Enemy
                 player.TakeDamage(Damage);
             }
         }
+    }
+
+    public override void Kill()
+    {
+        base.Kill();
+        _targetPlayer = true;
+        Speed = MaxSpeed;
     }
 }

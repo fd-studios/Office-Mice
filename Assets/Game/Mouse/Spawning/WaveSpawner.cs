@@ -19,6 +19,7 @@ public partial class WaveSpawner : MonoBehaviour
     public float waveCountDown;
     public Text Label;
     public AudioSource[] CountDown = new AudioSource[11];
+    public AudioSource RushAnnouncement;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +77,7 @@ public partial class WaveSpawner : MonoBehaviour
         Debug.Log($"Spawning Wave: {wave.Name}");
         _state = SpawnState.Spawning;
 
+        StartCoroutine(StartRush(wave));
         for (int i = 0; i < wave.Count * _statMultiplier; i++)
         {
             SpawnEnemy(wave.Enemy);
@@ -119,8 +121,17 @@ public partial class WaveSpawner : MonoBehaviour
         }
     }
 
-    void StartRush()
+    IEnumerator StartRush(Wave wave)
     {
-
+        Debug.Log($"Rush In {wave.RushTimer}");
+        yield return new WaitForSeconds(wave.RushTimer);
+        Debug.Log($"Run Run Run");
+        if(RushAnnouncement != null) RushAnnouncement.Play();
+        var enemeies = GameObject.FindObjectsOfType<Enemy>();
+        foreach (var enemy in enemeies)
+        {
+            enemy.Kill();
+        }
+        yield break;
     }
 }

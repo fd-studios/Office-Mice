@@ -13,4 +13,9 @@ public class Enemy : MonoBehaviour
     public float BaseSpeed { get; set; } = 5f;
     public int Health { get; protected set; }
     public float Speed { get; protected set; }
+
+    public virtual void Kill()
+    {
+
+    }
 }
