@@ -58,4 +58,29 @@ public class ObjectPooler : MonoBehaviour
         }
         return null;
     }
+
+    public T GetPooledObject<T>(string tag)
+    {
+        for (int i = 0; i < pooledObjects.Count; i++)
+        {
+            if (!pooledObjects[i].activeInHierarchy && pooledObjects[i].tag == tag)
+            {
+                return pooledObjects[i].GetComponent<T>();
+            }
+        }
+        foreach (ObjectPoolItem item in itemsToPool)
+        {
+            if (item.objectToPool.tag == tag)
+            {
+                if (item.shouldExpand)
+                {
+                    GameObject obj = Instantiate(item.objectToPool);
+                    obj.SetActive(false);
+                    pooledObjects.Add(obj);
+                    return obj.GetComponent<T>();
+                }
+            }
+        }
+        return default(T);
+    }
 }

@@ -78,9 +78,9 @@ public partial class WaveSpawner : MonoBehaviour
         _state = SpawnState.Spawning;
 
         StartCoroutine(StartRush(wave));
-        for (int i = 0; i < wave.Count * _statMultiplier; i++)
+        for (int i = 0; i < wave.Count; i++)
         {
-            SpawnEnemy(wave.Enemy);
+            SpawnEnemy(wave);
             yield return new WaitForSeconds(1 / wave.Rate);
         }
 
@@ -88,13 +88,18 @@ public partial class WaveSpawner : MonoBehaviour
         yield break;
     }
 
-    void SpawnEnemy(Enemy enemy)
+    void SpawnEnemy(Wave wave)
     {
         Debug.Log($"Spawning enemy: ");
-        var spawnPoints = _spawnPoints[Random.Range(1, _spawnPoints.Length)-1];
+        var enemy = ObjectPooler.SharedInstance.GetPooledObject<Enemy>(wave.ObjectTag);
+        var spawnPoints = _spawnPoints[Random.Range(1, _spawnPoints.Length) - 1];
+        if (enemy != null)
+        {
+            enemy.transform.position = spawnPoints.transform.position;
+            enemy.transform.rotation = spawnPoints.transform.rotation;
+            enemy.gameObject.SetActive(true);
+        }
         enemy.StatMultiplier = _statMultiplier;
-        Debug.Log($"enemy:{enemy.StatMultiplier}");
-        Instantiate(enemy.transform, spawnPoints.transform.position, spawnPoints.transform.rotation);
     }
 
     bool EnemiesAlive()

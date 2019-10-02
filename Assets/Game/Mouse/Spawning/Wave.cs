@@ -9,4 +9,5 @@ public class Wave
     public int Count;
     public float Rate;
     public int RushTimer;
+    public string ObjectTag;
 }

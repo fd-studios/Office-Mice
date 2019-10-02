@@ -105,7 +105,7 @@ public class Mouse : Enemy
         Debug.Log("Mouse dead");
         var deadMouse = Instantiate(deathEffect, transform.position, Quaternion.identity);
         deadMouse.transform.localScale = transform.localScale;
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         Score score = player.GetComponentInChildren<Score>();
         score.IncreaseScore(1 * StatMultiplier);
         Destroy(deadMouse, 2f);

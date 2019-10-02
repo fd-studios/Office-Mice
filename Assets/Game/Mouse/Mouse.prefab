@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 95616924660584378}
   m_Layer: 0
   m_Name: Mouse
-  m_TagString: Untagged
+  m_TagString: Mouse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,6 +287,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   Shot: {fileID: 0}
   Damage: 10
+  RushIncrement: 10
+  MaxSpeed: 30
 --- !u!95 &95616924660584378
 Animator:
   serializedVersion: 3
