@@ -10967,7 +10967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4f87f91cc7e19418b50a90782266d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lives: 0
+  Lives: 3
   GameOver: {fileID: 201669468}
 --- !u!4 &721554633
 Transform:

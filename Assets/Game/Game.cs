@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -20,7 +22,7 @@ public class Game : MonoBehaviour
 
     }
 
-    public void Respwan(GameObject obj, int seconds, Action callback = null)
+    public async void Respwan(GameObject obj, int seconds, Action callback = null)
     {
         if(obj.tag == "Player")
         {
@@ -30,7 +32,13 @@ public class Game : MonoBehaviour
             }
             else
             {
-                if (GameOver != null) GameOver.Play();
+                if (GameOver != null)
+                {
+                    GameOver.Play();
+
+                    await Task.Delay(3000);
+                    SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
+                }
                 return;
             }
         }
