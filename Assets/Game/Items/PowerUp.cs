@@ -6,6 +6,7 @@ public abstract class PowerUp : MonoBehaviour
 {
     Game _game;
 
+    protected Transform _transform;
     public int RespawnDelay = 60;
 
     public abstract void OnPickup(Player player);
@@ -13,6 +14,7 @@ public abstract class PowerUp : MonoBehaviour
     private void Start()
     {
         _game = GameObject.FindObjectOfType<Game>();
+        _transform = GetComponent<Transform>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)

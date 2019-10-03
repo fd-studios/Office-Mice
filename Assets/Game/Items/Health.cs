@@ -10,4 +10,11 @@ public class Health : PowerUp
     {
         player.AddHealth(Heal);
     }
+
+    public void Update()
+    {
+        var y = Mathf.Sin(Time.fixedTime * Mathf.PI * 1f) * 0.01f;
+
+        _transform.position += new Vector3(0, y, 0);
+    }
 }
