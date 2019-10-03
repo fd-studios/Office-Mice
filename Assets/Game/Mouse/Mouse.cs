@@ -15,6 +15,7 @@ public class Mouse : Enemy
     public GameObject deathEffect;
     public Rigidbody2D rb;
     public AudioSource Shot;
+    public AudioSource chirp;
     public int Damage = 10;
     public int RushIncrement = 10;
     public float MaxSpeed = 30f;
@@ -91,6 +92,9 @@ public class Mouse : Enemy
         // cap the max speed
         if (Speed > MaxSpeed) Speed = MaxSpeed;
         StartCoroutine(EndRush());
+
+        if (Random.value < .2f)
+            chirp.Play();
     }
 
     IEnumerator EndRush()

@@ -10967,7 +10967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4f87f91cc7e19418b50a90782266d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lives: 3
+  Lives: 0
   GameOver: {fileID: 201669468}
 --- !u!4 &721554633
 Transform:
@@ -12654,7 +12654,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6b978750e94c6b74ca02226a2498eed8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: dbed99b290d2e3448b89c51d6006da2f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
