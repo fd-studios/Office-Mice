@@ -10,7 +10,7 @@ public partial class WaveSpawner : MonoBehaviour
     int _waveCount = 1;
     SpawnState _state = SpawnState.Counting;
     float _searchCountdown = 1f;
-    uint _statMultiplier = 1;
+    int _statMultiplier = 1;
     int _countDown;
     GameObject[] _spawnPoints;
 
