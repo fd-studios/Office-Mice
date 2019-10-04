@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="405.86825"
+     inkscape:cx="238.86825"
      inkscape:cy="579.96741"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -64,7 +64,7 @@
        inkscape:export-ydpi="96" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:18.03844261px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff2a7f;fill-opacity:1;stroke:none;stroke-width:0.45096102"
+       style="font-style:normal;font-weight:normal;font-size:18.03844261px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff0066;fill-opacity:1;stroke:none;stroke-width:0.45096102;"
        x="91.943947"
        y="145.1832"
        id="text822"
@@ -75,11 +75,11 @@
          id="tspan820"
          x="91.943947"
          y="145.1832"
-         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:15.03203583px;line-height:1;font-family:Bogle;-inkscape-font-specification:'Bogle Heavy';fill:#ff2a7f;stroke:none;stroke-width:0.45096102">  FLIGHT DECK</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:15.03203583px;line-height:1;font-family:Bogle;-inkscape-font-specification:'Bogle Heavy';fill:#ff0066;stroke:none;stroke-width:0.45096102;fill-opacity:1;">  FLIGHT DECK</tspan><tspan
          sodipodi:role="line"
          x="91.943947"
          y="181.98834"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.29225922px;line-height:1;font-family:Milkshake;-inkscape-font-specification:Milkshake;fill:#ff2a7f;stroke:none;stroke-width:0.45096102"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.29225922px;line-height:1;font-family:Milkshake;-inkscape-font-specification:Milkshake;fill:#ff0066;stroke:none;stroke-width:0.45096102;fill-opacity:1;"
          id="tspan824">Studios</tspan></text>
     <path
        style="fill:#ff0066;stroke:#ff0066;stroke-width:0.57311958;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
