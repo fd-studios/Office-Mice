@@ -97,9 +97,9 @@ public partial class WaveSpawner : MonoBehaviour
         {
             enemy.transform.position = spawnPoints.transform.position;
             enemy.transform.rotation = spawnPoints.transform.rotation;
+            enemy.StatMultiplier = _statMultiplier;
             enemy.gameObject.SetActive(true);
         }
-        enemy.StatMultiplier = _statMultiplier;
     }
 
     bool EnemiesAlive()

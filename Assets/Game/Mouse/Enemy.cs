@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public int StatMultiplier { get; set; } = 1;
     public int BaseHealth { get; set; } = 120;
     public float BaseSpeed { get; set; } = 5f;
+    public float BaseDamage { get; set; } = 10f;
     public int Health { get; protected set; }
     public float Speed { get; protected set; }
 
