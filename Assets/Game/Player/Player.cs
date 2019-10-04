@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public bool UpgradedWeapon { get { return upgradedWeapon; } }
     public float FiringRate = 4;
     public int BaseHealth = 200;
-    public int Health { get; private set; }
+    public float Health { get; private set; }
     public int BaseAmmo = 50;
     public int Ammo { get; private set; }
     public int RespawnDelay = 5;
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
         yield break;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         var now = DateTime.Now;
         if (now - _hitDelay > _lastHit)

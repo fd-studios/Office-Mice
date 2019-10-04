@@ -16,7 +16,7 @@ public class Mouse : Enemy
     public Rigidbody2D rb;
     public AudioSource Shot;
     public AudioSource chirp;
-    public int Damage = 10;
+    public float Damage = 10f;
     public int RushIncrement = 10;
     public float MaxSpeed = 30f;
 
@@ -29,11 +29,17 @@ public class Mouse : Enemy
         _someScale = transform.localScale.x;
     }
 
+    void ResetStats()
+    {
+        Speed = BaseSpeed * (1 + StatMultiplier / 20f);
+        Damage = BaseDamage * (1 + StatMultiplier / 10f);
+        Health = BaseHealth * (int)(1 + StatMultiplier / 10f);
+        Debug.Log($"Health:{Health} Speed:{Speed}");
+    }
+
     void OnEnable()
     {
-        Speed = BaseSpeed * StatMultiplier;
-        Health = BaseHealth * (int)StatMultiplier;
-        Debug.Log($"Health:{Health} Speed:{Speed}");
+        ResetStats();
     }
 
     void Update()
@@ -86,12 +92,12 @@ public class Mouse : Enemy
         Destroy(effect, 0.08f);
     }
 
-    void StartRush()
+    void StartRush(bool temp = false)
     {
         Speed += RushIncrement;
         // cap the max speed
         if (Speed > MaxSpeed) Speed = MaxSpeed;
-        StartCoroutine(EndRush());
+        if(temp) StartCoroutine(EndRush());
 
         if (Random.value < .2f)
             chirp.Play();
@@ -99,6 +105,7 @@ public class Mouse : Enemy
 
     IEnumerator EndRush()
     {
+        if(_targetPlayer) yield break;
         yield return new WaitForSeconds(5);
         Speed -= RushIncrement;
         yield break;
@@ -109,6 +116,8 @@ public class Mouse : Enemy
         Debug.Log("Mouse dead");
         var deadMouse = Instantiate(deathEffect, transform.position, Quaternion.identity);
         deadMouse.transform.localScale = transform.localScale;
+        _targetPlayer = false;
+        _beenHit = false;
         gameObject.SetActive(false);
         Score score = player.GetComponentInChildren<Score>();
         score.IncreaseScore(1 * StatMultiplier);
@@ -130,6 +139,6 @@ public class Mouse : Enemy
     {
         base.Kill();
         _targetPlayer = true;
-        Speed = MaxSpeed;
+        StartRush();
     }
 }
