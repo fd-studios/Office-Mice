@@ -41,6 +41,10 @@ public class ScoresHandler : MonoBehaviour
             var hs = new HighScore { playerName = name, score = score };
             highscores.highScores.Add(hs);
             highscores.highScores.Sort();
+            highscores.highScores.Reverse();
+
+            if (highscores.highScores.Count > 10)
+                highscores.highScores.RemoveRange(10, highscores.highScores.Count - 10);
 
             var file = File.CreateText(hsFile);
             var json = JsonUtility.ToJson(highscores);
