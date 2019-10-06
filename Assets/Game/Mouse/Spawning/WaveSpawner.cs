@@ -18,7 +18,9 @@ public partial class WaveSpawner : MonoBehaviour
     public float timeBetweenWaves = 3f;
     public float waveCountDown;
     public Text Label;
-    public AudioSource[] CountDown = new AudioSource[11];
+
+    public AudioSource Ready;
+    public AudioSource Begin;
     public AudioSource RushAnnouncement;
 
     // Start is called before the first frame update
@@ -64,7 +66,11 @@ public partial class WaveSpawner : MonoBehaviour
 
             if(_nextWave >= 0)
             {
-                CountDown[_countDown].Play();
+                if (_countDown == 2)
+                    Ready.Play();
+                else if (_countDown == 0)
+                    Begin.Play();
+
                 Label.text = $"Wave {_waveCount}: {_countDown + 1}";
             }
             _countDown = countDown;

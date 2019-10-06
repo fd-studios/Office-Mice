@@ -111,7 +111,8 @@ public class Player : MonoBehaviour
         Ammo = BaseAmmo;
         transform.position = new Vector3(0, 1, -1);
         transform.rotation = new Quaternion();
-        var go = FindObjectOfType<WaveSpawner>().CountDown[0];
+
+        var go = FindObjectOfType<WaveSpawner>().Begin;
         go.Play();
     }
 
