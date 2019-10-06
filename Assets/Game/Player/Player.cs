@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
             Health -= damage;
             _lastHit = now;
             Debug.Log($"Player hit: {damage} Health: {Health}");
-            if (Health == 0)
+            if (Health <= 0)
             {
                 Die();
             }
