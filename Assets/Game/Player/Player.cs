@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -27,6 +28,9 @@ public class Player : MonoBehaviour
     public int BaseAmmo = 50;
     public int Ammo { get; private set; }
     public int RespawnDelay = 5;
+
+    public ToastHandler ToastPanel;
+
 
     // Start is called before the first frame update
     void Start()
@@ -65,11 +69,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void UpgradeWeapon(float duration)
+    public async void UpgradeWeapon(float duration)
     {
         Debug.Log($"Weapone Upgraded");
         upgradedWeapon = true;
         StartCoroutine(Downgrade(duration));
+
+        await ToastPanel.ToastWeaponUpgrade();
     }
 
     IEnumerator Downgrade(float duration)
@@ -116,9 +122,11 @@ public class Player : MonoBehaviour
         go.Play();
     }
 
-    public void AddAmmo(int ammo)
+    public async void AddAmmo(int ammo)
     {
         Ammo += ammo;
+
+        await ToastPanel.ToastAmmo();
     }
 
     public void OnShotFired()
