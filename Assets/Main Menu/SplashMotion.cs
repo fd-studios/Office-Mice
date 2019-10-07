@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SplashMotion : MonoBehaviour
 {
-    public Transform Sun, Shadow;
+    public GameObject Sun, Fd, Shadow;
     public GameObject bgm;
 
     float _splashStart;
+    SpriteRenderer _sunSR, _fdSR, _shadowSR;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,10 @@ public class SplashMotion : MonoBehaviour
         MenuHandlers.runningBgm = bgm;
 
         _splashStart = Time.realtimeSinceStartup;
+
+        _sunSR = Sun.GetComponent<SpriteRenderer>();
+        _fdSR = Fd.GetComponent<SpriteRenderer>();
+        _shadowSR = Shadow.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -25,10 +30,14 @@ public class SplashMotion : MonoBehaviour
         if (Time.realtimeSinceStartup - _splashStart > 3.5)
             SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
 
-        if(Time.realtimeSinceStartup - _splashStart < 2)
+        var animateTime = 2f;
+        if(Time.realtimeSinceStartup - _splashStart < animateTime)
         {
-            Sun.Translate(new Vector3(0, -.1f / 2 * Time.deltaTime, 0));
-            Shadow.localScale += new Vector3(0, -.5f / 2 * Time.deltaTime, 0);
+            var dt = Time.deltaTime / animateTime;
+            Sun.transform.Translate(new Vector3(0, -.2f * dt, 0));
+            Shadow.transform.localScale += new Vector3(0, .5f * dt, 0);
+
+            _sunSR.color = _fdSR.color = _shadowSR.color = new Color(1, _shadowSR.color.g - 1 * dt, _shadowSR.color.b - .4f * dt);
         }
     }
 }
