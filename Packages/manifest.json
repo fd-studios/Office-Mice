@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.h8man.2d.navmeshplus": "https://github.com/h8man/NavMeshPlus.git#master",
     "com.unity.2d.tilemap.extras": "https://github.com/Unity-Technologies/2d-extras.git#package",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.2.2",
@@ -42,6 +43,10 @@
     "com.unity.2d.tilemap.extras": {
       "hash": "d4d5c3720142af52b3a753cd3ba19258672a87e1",
       "revision": "package"
+    },
+    "com.h8man.2d.navmeshplus": {
+      "hash": "3e4a07a5d5ce1eb492b206bda103fb50a021a780",
+      "revision": "master"
     }
   }
 }
