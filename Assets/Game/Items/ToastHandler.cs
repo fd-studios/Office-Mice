@@ -12,7 +12,7 @@ public class ToastHandler : MonoBehaviour
     public Image Image;
     public GameObject Panel;
 
-    public Sprite ammo, weapon;
+    public Sprite ammo, weapon, weaponUpgrade;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +35,15 @@ public class ToastHandler : MonoBehaviour
     }
 
     public async Task ToastWeaponUpgrade()
+    {
+        Title.text = "You got:";
+        Content.text = $"N-Strike Elite SurgeFire{Environment.NewLine}$18.88";
+        Image.sprite = weaponUpgrade;
+
+        await ToastEnable(3000);
+    }
+
+    public async Task ToastWeaponDowngrade()
     {
         Title.text = "You got:";
         Content.text = $"N-Strike Elite Disruptor{Environment.NewLine}$9.99";

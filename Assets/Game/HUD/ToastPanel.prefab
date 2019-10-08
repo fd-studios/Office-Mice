@@ -320,3 +320,4 @@ MonoBehaviour:
   Panel: {fileID: 5738018971778427283}
   ammo: {fileID: 21300000, guid: a8790e55a42df9a42a09fb6e9ff7a878, type: 3}
   weapon: {fileID: 21300000, guid: 5e3e499ab9607b943b46dfdff6ddf243, type: 3}
+  weaponUpgrade: {fileID: 21300000, guid: e50324b841baa3040a030711fdfb6f34, type: 3}

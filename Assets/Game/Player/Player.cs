@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Game.Items.Guns;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,9 +12,9 @@ public class Player : MonoBehaviour
     Game _game;
     SpriteRenderer _spriteRenderer;
     Movement _movement;
-    bool upgradedWeapon = false;
     DateTime _lastHit;
     TimeSpan _hitDelay;
+    Weapon _weapon;
 
     public Sprite Standing;
     public Sprite Walking;
@@ -21,13 +22,13 @@ public class Player : MonoBehaviour
     public Sprite ShootingMachineGun;
 
     public PlayerState State = PlayerState.Standing;
-    public bool UpgradedWeapon { get { return upgradedWeapon; } }
-    public float FiringRate = 4;
     public int BaseHealth = 200;
     public float Health { get; private set; }
     public int BaseAmmo = 50;
     public int Ammo { get; private set; }
     public int RespawnDelay = 5;
+    public GameObject StartingGun;
+    public GameObject Body;
 
     public ToastHandler ToastPanel;
 
@@ -36,8 +37,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         _game = GameObject.FindObjectOfType<Game>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = Body.GetComponent<SpriteRenderer>();
         _movement = GetComponent<Movement>();
+        _weapon = GetComponent<Weapon>();
+        _weapon.EquipGun(StartingGun.GetComponent<Gun>());
         _hitDelay = new TimeSpan(0, 0, 0, 0, 500);
         Health = BaseHealth;
         Ammo = BaseAmmo;
@@ -55,24 +58,17 @@ public class Player : MonoBehaviour
                 _spriteRenderer.sprite = Walking;
                 break;
             case PlayerState.ShootingGun:
-                if (UpgradedWeapon)
-                {
-                    _spriteRenderer.sprite = ShootingMachineGun;
-                    FiringRate = 20;
-                }
-                else
-                {
-                    _spriteRenderer.sprite = ShootingGun;
-                    FiringRate = 8;
-                }
+                _spriteRenderer.sprite = ShootingGun;
                 break;
         }
     }
 
-    public async void UpgradeWeapon(float duration)
+    public async void UpgradeWeapon(Gun gun, float duration)
     {
         Debug.Log($"Weapone Upgraded");
-        upgradedWeapon = true;
+
+        _weapon.EquipGun(gun);
+
         StartCoroutine(Downgrade(duration));
 
         await ToastPanel.ToastWeaponUpgrade();
@@ -82,8 +78,14 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         Debug.Log($"Weapone Downgraded");
-        upgradedWeapon = false;
+        _weapon.EquipGun(StartingGun.GetComponent<Gun>());
+        OnDowngrade();
         yield break;
+    }
+
+    async void OnDowngrade()
+    {
+        await ToastPanel.ToastWeaponDowngrade();
     }
 
     public void TakeDamage(float damage)
@@ -106,6 +108,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log($"Player died");
         gameObject.SetActive(false);
+        _weapon.EquipGun(StartingGun.GetComponent<Gun>());
         _game.Respwan(gameObject, RespawnDelay, OnRespawn);
     }
 
@@ -120,6 +123,8 @@ public class Player : MonoBehaviour
 
         var go = FindObjectOfType<WaveSpawner>().Begin;
         go.Play();
+
+        OnDowngrade();
     }
 
     public async void AddAmmo(int ammo)
