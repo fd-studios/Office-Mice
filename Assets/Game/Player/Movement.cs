@@ -89,7 +89,7 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // The Axis names are under Project Settings ... Input
         // When two axis settings have the same name the one with

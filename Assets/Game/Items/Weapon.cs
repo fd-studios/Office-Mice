@@ -25,15 +25,20 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _spriteRenderer.sprite = _gun.Sprite;
         var movement = GetComponent<Movement>();
         if (movement != null && movement.Firing)
         {
+            _spriteRenderer.sprite = _gun.Sprite;
             Shoot();
         }
-        if (Input.GetButtonDown("Fire1"))
+        else if (Input.GetButtonDown("Fire1"))
         {
+            _spriteRenderer.sprite = _gun.Sprite;
             Shoot();
+        }
+        else
+        {
+            _spriteRenderer.sprite = null;
         }
     }
 

@@ -143,5 +143,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RespawnDelay: 60
   Ammo: 100
-  Duration: 10
+  Duration: -1
   GunType: {fileID: 8329058111348916606, guid: 625e9050a23c2974181b8ec4bb86d427, type: 3}

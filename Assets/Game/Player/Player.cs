@@ -69,7 +69,8 @@ public class Player : MonoBehaviour
 
         _weapon.EquipGun(gun);
 
-        StartCoroutine(Downgrade(duration));
+        if(duration > 0f)
+            StartCoroutine(Downgrade(duration));
 
         await ToastPanel.ToastWeaponUpgrade();
     }
@@ -79,7 +80,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(duration);
         Debug.Log($"Weapone Downgraded");
         _weapon.EquipGun(StartingGun.GetComponent<Gun>());
-        OnDowngrade();
+        //OnDowngrade();
         yield break;
     }
 
@@ -95,6 +96,7 @@ public class Player : MonoBehaviour
         {
             Health -= damage;
             _lastHit = now;
+            _weapon.EquipGun(StartingGun.GetComponent<Gun>());
             Debug.Log($"Player hit: {damage} Health: {Health}");
             if (Health <= 0)
             {

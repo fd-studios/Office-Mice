@@ -172,7 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FiringRate: 0
-  FirePoint: {fileID: 0}
   FiringSound: {fileID: 0}
   Sprite: {fileID: 0}
   FiringAnimation: {fileID: 0}
@@ -275,13 +274,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SnapShoot: 0
-  SnapMove: 0
+  SnapMove: 1
   MouseShoot: 0
   Firing: 0
   FireAngle: 0
   FireVector: {x: 0, y: 0, z: 0}
-  WalkingSpeed: 0.1
-  RunningSpeed: 0.2
+  WalkingSpeed: 0.05
+  RunningSpeed: 0.08
 --- !u!50 &9094159647322337058
 Rigidbody2D:
   serializedVersion: 4
@@ -315,10 +314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57935ced8dfc8fc4986e4189ccf049ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Gun: {fileID: 0}
   FirePoint: {fileID: 9094159646958144461}
   BulletPrefab: {fileID: 7587244001271015866, guid: abbf312e994d6794a9c4c27db56dd47b,
     type: 3}
-  FiringSound: {fileID: 0}
 --- !u!114 &9094159647322337084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +352,7 @@ MonoBehaviour:
   BaseAmmo: 50
   RespawnDelay: 5
   StartingGun: {fileID: 0}
+  Body: {fileID: 0}
   ToastPanel: {fileID: 0}
 --- !u!1 &9094159647612649757
 GameObject:
