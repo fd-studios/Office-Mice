@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
 
     public bool SnapShoot = true;
     public bool SnapMove = true;
-    public bool MouseShoot = false;
+    public bool MouseShoot = true;
 
     public bool Firing = false;
     public float FireAngle = 0;
@@ -34,6 +34,8 @@ public class Movement : MonoBehaviour
 
         // Start the player off facing to the right
         _transform.eulerAngles = Vector2.right;
+
+        MouseShoot = PlayerPrefs.GetInt("aim") == 0;
     }
 
     /// <summary>
