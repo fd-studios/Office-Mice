@@ -22,27 +22,21 @@ public class Game : MonoBehaviour
 
     }
 
-    public async void Respwan(GameObject obj, int seconds, Action callback = null)
+    public void Respwan(GameObject obj, int seconds, Action callback = null)
     {
         if(obj.tag == "Player")
         {
             if (Lives > 0)
             {
                 Lives--;
+                StartCoroutine(_respawn(obj, seconds, callback));
             }
             else
             {
-                if (GameOver != null)
-                {
-                    GameOver.Play();
-
-                    await Task.Delay(3000);
-                    SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
-                }
-                return;
+                GameOver.Play();
+                StartCoroutine(GameOverEvent(seconds));
             }
         }
-        StartCoroutine(_respawn(obj, seconds, callback));
     }
 
     IEnumerator _respawn(GameObject obj, int seconds, Action callback = null)
@@ -50,6 +44,13 @@ public class Game : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         obj.SetActive(true);
         callback?.Invoke();
+        yield break;
+    }
+
+    IEnumerator GameOverEvent(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
         yield break;
     }
 }
