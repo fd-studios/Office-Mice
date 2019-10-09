@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SplashMotion : MonoBehaviour
 {
-    public GameObject Sun, Fd, Shadow;
+    public GameObject Sun, Fd, Shadow, Plane;
     public GameObject bgm;
 
     float _splashStart;
@@ -34,7 +34,11 @@ public class SplashMotion : MonoBehaviour
         if(Time.realtimeSinceStartup - _splashStart < animateTime)
         {
             var dt = Time.deltaTime / animateTime;
+
             Sun.transform.Translate(new Vector3(0, -.2f * dt, 0));
+
+            Plane.transform.Translate(new Vector3(.5f * dt, -.1f * dt, 0));
+
             Shadow.transform.localScale += new Vector3(0, .5f * dt, 0);
 
             _sunSR.color = _fdSR.color = _shadowSR.color = new Color(1, _shadowSR.color.g - 1 * dt, _shadowSR.color.b - .4f * dt);
