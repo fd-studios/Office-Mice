@@ -5,4 +5,4 @@ FD Studios' Initial offering
 Use this as a mono-repo until someone thinks of a better idea?
 
 ## Discord Notifications
-Events in this repo are posted to the FD-Studios Discord server in `#github` channel.
+Events in this repo are posted to the FD-Studios Discord server in `#github` channel. 
