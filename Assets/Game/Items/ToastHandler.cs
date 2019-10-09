@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,50 +17,59 @@ public class ToastHandler : MonoBehaviour
         Panel.SetActive(false);
     }
 
-    int _toastStack = 0;
+    float _timeOut = 0f;
 
-    async Task ToastEnable(int delayMs)
+    void ToastEnable(float delaySeconds)
     {
-        _toastStack++;
         Panel.SetActive(true);
 
-        await Task.Delay(delayMs);
-
-        _toastStack--;
-        if (_toastStack == 0)
-            Panel.SetActive(false);
+        _timeOut = delaySeconds;
     }
 
-    public async Task ToastWeaponUpgrade(Sprite sprite)
+    public void ToastWeaponUpgrade(Sprite sprite)
     {
         Title.text = "You got:";
         Content.text = $"N-Strike Elite SurgeFire{Environment.NewLine}$18.88";
         Image.sprite = sprite;
 
-        await ToastEnable(3000);
+        ToastEnable(3);
     }
 
-    public async Task ToastWeaponDowngrade()
+    public void ToastWeaponDowngrade()
     {
         Title.text = "You got:";
         Content.text = $"N-Strike Elite Disruptor{Environment.NewLine}$9.99";
         Image.sprite = weapon;
 
-        await ToastEnable(3000);
+        ToastEnable(3);
     }
 
-    public async Task ToastAmmo()
+    public void ToastAmmo()
     {
         Title.text = "You got:";
         Content.text = $"N-Strike Elite Ammo{Environment.NewLine}$9.99";
         Image.sprite = ammo;
 
-        await ToastEnable(2000);
+        ToastEnable(2);
+    }
+
+    public void ToastItem(Sprite sprite, string title, string price)
+    {
+        Title.text = "You got:";
+        Content.text = $"{title}{Environment.NewLine}{price}";
+        Image.sprite = sprite;
+
+        ToastEnable(2);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (_timeOut > 0)
+        {
+            _timeOut -= Time.deltaTime;
+            if(_timeOut <= 0)
+                Panel.SetActive(false);
+        }
     }
 }

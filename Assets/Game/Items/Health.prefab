@@ -48,6 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RespawnDelay: 60
   Heal: 50
+  ToastIcon: {fileID: 21300000, guid: 4268e0ae6bf64774db6b26341235569e, type: 3}
+  Title: Famous Amos Bite Size
+  Price: $6.72 for 20
 --- !u!50 &5596571856073652026
 Rigidbody2D:
   serializedVersion: 4

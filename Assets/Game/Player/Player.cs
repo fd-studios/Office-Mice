@@ -66,14 +66,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public async void UpgradeWeapon(Gun gun, float duration)
+    public void UpgradeWeapon(Gun gun, float duration)
     {
         _weapon.EquipGun(gun);
 
         if(duration > 0f)
             StartCoroutine(Downgrade(duration));
 
-        await ToastPanel.ToastWeaponUpgrade(gun.ToastImage);
+        ToastPanel.ToastWeaponUpgrade(gun.ToastImage);
     }
 
     IEnumerator Downgrade(float duration)
@@ -85,9 +85,9 @@ public class Player : MonoBehaviour
         yield break;
     }
 
-    async void OnDowngrade()
+    void OnDowngrade()
     {
-        await ToastPanel.ToastWeaponDowngrade();
+        ToastPanel.ToastWeaponDowngrade();
     }
 
     public void TakeDamage(float damage)
@@ -128,11 +128,11 @@ public class Player : MonoBehaviour
         OnDowngrade();
     }
 
-    public async void AddAmmo(int ammo)
+    public void AddAmmo(int ammo)
     {
         Ammo += ammo;
 
-        await ToastPanel.ToastAmmo();
+        ToastPanel.ToastAmmo();
     }
 
     public void OnShotFired(int projectileValue)

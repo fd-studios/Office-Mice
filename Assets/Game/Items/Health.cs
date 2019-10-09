@@ -6,9 +6,14 @@ public class Health : PowerUp
 {
     public int Heal = 50;
 
+    public Sprite ToastIcon;
+
+    public string Title, Price;
+
     public override void OnPickup(Player player)
     {
         player.AddHealth(Heal);
+        player.ToastPanel.ToastItem(ToastIcon, Title, Price);
     }
 
     public void Update()
