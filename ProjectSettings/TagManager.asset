@@ -10,6 +10,11 @@ TagManager:
   - Ammo
   - Spawn Point
   - Mouse
+  - Grenade
+  - Health
+  - Audio:Gun
+  - Audio:Grenade
+  - Decor
   layers:
   - Default
   - TransparentFX

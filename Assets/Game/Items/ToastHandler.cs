@@ -34,11 +34,11 @@ public class ToastHandler : MonoBehaviour
             Panel.SetActive(false);
     }
 
-    public async Task ToastWeaponUpgrade()
+    public async Task ToastWeaponUpgrade(Sprite sprite)
     {
         Title.text = "You got:";
         Content.text = $"N-Strike Elite SurgeFire{Environment.NewLine}$18.88";
-        Image.sprite = weaponUpgrade;
+        Image.sprite = sprite;
 
         await ToastEnable(3000);
     }

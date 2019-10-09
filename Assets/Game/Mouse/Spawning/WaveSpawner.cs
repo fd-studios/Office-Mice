@@ -29,7 +29,6 @@ public partial class WaveSpawner : MonoBehaviour
         waveCountDown = timeBetweenWaves;
         _countDown = Mathf.RoundToInt(waveCountDown);
         _spawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
-        Debug.Log($"Spawn Points:{_spawnPoints.Length}");
     }
 
     // Update is called once per frame
@@ -80,7 +79,6 @@ public partial class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnWaves(Wave wave)
     {
-        Debug.Log($"Spawning Wave: {wave.Name}");
         _state = SpawnState.Spawning;
 
         StartCoroutine(StartRush(wave));
@@ -96,7 +94,6 @@ public partial class WaveSpawner : MonoBehaviour
 
     void SpawnEnemy(Wave wave)
     {
-        Debug.Log($"Spawning enemy: ");
         var enemy = ObjectPooler.SharedInstance.GetPooledObject<Enemy>(wave.ObjectTag);
         var spawnPoints = _spawnPoints[Random.Range(1, _spawnPoints.Length) - 1];
         if (enemy != null)

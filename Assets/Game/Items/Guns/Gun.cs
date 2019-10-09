@@ -12,20 +12,34 @@ namespace Assets.Game.Items.Guns
     {
         SpriteRenderer _spriteRenderer;
         Transform _firePoint;
+        Projectile _projectile;
+        AudioSource _firingSound;
 
         public float FiringRate;
-        public AudioSource FiringSound;
+        public string AudioTag;
         public Sprite Sprite;
         public GameObject FiringAnimation;
+        public GameObject ProjectileType;
+        public Sprite ToastImage;
+
+        public Projectile Projectile
+        {
+            get
+            {
+                if (_projectile == null)
+                    _projectile = ProjectileType.GetComponent<Projectile>();
+                return _projectile;
+            }
+        }
 
         void OnEnable()
         {
-            var _spriteRenderer = GetComponent<SpriteRenderer>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         void Update()
         {
-            if(_spriteRenderer != null)
+            if (_spriteRenderer != null)
                 _spriteRenderer.sprite = Sprite;
         }
 
@@ -36,14 +50,21 @@ namespace Assets.Game.Items.Guns
 
         public virtual void Fire()
         {
-            GameObject bullet = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
-            if (bullet != null)
+            GameObject projectile = ObjectPooler.SharedInstance.GetPooledObject(ProjectileType?.tag);
+            if (projectile != null)
             {
-                bullet.transform.position = _firePoint.position;
-                bullet.transform.rotation = _firePoint.rotation;
-                bullet.SetActive(true);
+                projectile.transform.position = _firePoint.position;
+                projectile.transform.rotation = _firePoint.rotation;
+                projectile.SetActive(true);
             }
-            if (FiringSound != null) FiringSound.Play();
+            if (!string.IsNullOrEmpty(AudioTag))
+            {
+                _firingSound = GameObject.FindGameObjectWithTag(AudioTag).GetComponent<AudioSource>();
+            }
+            if (_firingSound != null)
+            {
+                _firingSound.Play();
+            }
         }
     }
 }

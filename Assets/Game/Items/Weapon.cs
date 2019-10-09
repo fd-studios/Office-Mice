@@ -52,10 +52,11 @@ public class Weapon : MonoBehaviour
     void Shoot()
     {
         var now = DateTime.Now;
-        if (now - _shotDelay > _lastShot && _player.Ammo > 0)
+        var minAmmo = _gun?.Projectile?.Cost ?? 1;
+        if (now - _shotDelay > _lastShot && _player.Ammo >= minAmmo)
         {
             _gun.Fire();
-            _player.OnShotFired();
+            _player.OnShotFired(minAmmo);
             _lastShot = now;
         }
     }

@@ -65,20 +65,18 @@ public class Player : MonoBehaviour
 
     public async void UpgradeWeapon(Gun gun, float duration)
     {
-        Debug.Log($"Weapone Upgraded");
-
         _weapon.EquipGun(gun);
 
         if(duration > 0f)
             StartCoroutine(Downgrade(duration));
 
-        await ToastPanel.ToastWeaponUpgrade();
+        await ToastPanel.ToastWeaponUpgrade(gun.ToastImage);
     }
 
     IEnumerator Downgrade(float duration)
     {
         yield return new WaitForSeconds(duration);
-        Debug.Log($"Weapone Downgraded");
+
         _weapon.EquipGun(StartingGun.GetComponent<Gun>());
         //OnDowngrade();
         yield break;
@@ -97,7 +95,6 @@ public class Player : MonoBehaviour
             Health -= damage;
             _lastHit = now;
             _weapon.EquipGun(StartingGun.GetComponent<Gun>());
-            Debug.Log($"Player hit: {damage} Health: {Health}");
             if (Health <= 0)
             {
                 Die();
@@ -108,7 +105,6 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log($"Player died");
         gameObject.SetActive(false);
         _weapon.EquipGun(StartingGun.GetComponent<Gun>());
         _game.Respwan(gameObject, RespawnDelay, OnRespawn);
@@ -116,7 +112,6 @@ public class Player : MonoBehaviour
 
     public void OnRespawn()
     {
-        Debug.Log($"Player respawned");
         _hitDelay = new TimeSpan(0, 0, 0, 0, 500);
         Health = BaseHealth;
         Ammo = BaseAmmo;
@@ -136,9 +131,9 @@ public class Player : MonoBehaviour
         await ToastPanel.ToastAmmo();
     }
 
-    public void OnShotFired()
+    public void OnShotFired(int projectileValue)
     {
-        Ammo -= 1;
+        Ammo -= projectileValue;
     }
 
     public void AddHealth(int health)

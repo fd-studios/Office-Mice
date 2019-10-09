@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Projectile
 {
     public float Speed = 20f;
     public int Damage = 40;
     Rigidbody2D _rigidbody;
-    
+    public int Value = 1;
+
+    public override int Cost { get { return Value; } }
+
     void OnEnable()
     {
         _rigidbody = GetComponent<Rigidbody2D>();

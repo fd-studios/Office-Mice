@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &448590541930620395
+--- !u!1 &5920891650489449686
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8439155713418637514}
-  - component: {fileID: 7872677890651033130}
+  - component: {fileID: 2759716181162554509}
+  - component: {fileID: 5218274391324972158}
   m_Layer: 0
-  m_Name: BasicGun
+  m_Name: HeavyGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8439155713418637514
+--- !u!4 &2759716181162554509
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448590541930620395}
+  m_GameObject: {fileID: 5920891650489449686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.56, y: 0.56, z: -1}
+  m_LocalPosition: {x: 1.186507, y: 1.5317193, z: -1.1015625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7872677890651033130
+--- !u!114 &5218274391324972158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448590541930620395}
+  m_GameObject: {fileID: 5920891650489449686}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31d100d7ee5837d41988b364fd86aa99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FiringRate: 8
-  AudioTag: Audio:Gun
-  Sprite: {fileID: 21300000, guid: eaf82745e81c1ba4a8f34b34b5919e6f, type: 3}
+  FiringRate: 3
+  AudioTag: Audio:Grenade
+  Sprite: {fileID: 21300000, guid: e1e0e8f5af25f0c469abb10a48c13b5d, type: 3}
   FiringAnimation: {fileID: 0}
-  ProjectileType: {fileID: 7587244001271015866, guid: abbf312e994d6794a9c4c27db56dd47b,
+  ProjectileType: {fileID: 3551805641684144915, guid: 6a80dd12999d9ee42abccef2c718b0b2,
     type: 3}
-  ToastImage: {fileID: 21300000, guid: 5e3e499ab9607b943b46dfdff6ddf243, type: 3}
+  ToastImage: {fileID: 21300000, guid: 8f1569b64d45b3b428f9ea062ba46293, type: 3}

@@ -42,8 +42,7 @@ public class Mouse : Enemy
     {
         Speed = BaseSpeed * (1 + StatMultiplier / 20f);
         Damage = BaseDamage * (1 + StatMultiplier / 10f);
-        Health = BaseHealth * (int)(1 + StatMultiplier / 10f);
-        Debug.Log($"Health:{Health} Speed:{Speed}");
+        Health = BaseHealth * (int)(1 + StatMultiplier / 10f); 
     }
 
     void OnEnable()
@@ -88,7 +87,6 @@ public class Mouse : Enemy
         var effect = Instantiate(hitEffect, position, transform.rotation);
         effect.transform.localScale = transform.localScale;
         Health -= damage;
-        Debug.Log($"Mouse Hit Health:{Health}");
 
         if (Health <= 0)
         {
@@ -118,7 +116,6 @@ public class Mouse : Enemy
 
     void Die()
     {
-        Debug.Log("Mouse dead");
         var deadMouse = Instantiate(deathEffect, transform.position, Quaternion.identity);
         deadMouse.transform.localScale = transform.localScale;
         _targetPlayer = false;

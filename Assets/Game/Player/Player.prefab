@@ -172,9 +172,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FiringRate: 0
-  FiringSound: {fileID: 0}
+  FiringSound: {fileID: 5057559233029632117, guid: 63a70c33777918e4b9cba27a451ae064,
+    type: 3}
   Sprite: {fileID: 0}
   FiringAnimation: {fileID: 0}
+  ProjectileType: {fileID: 7587244001271015866, guid: abbf312e994d6794a9c4c27db56dd47b,
+    type: 3}
 --- !u!1 &9094159646958144460
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57935ced8dfc8fc4986e4189ccf049ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gun: {fileID: 0}
+  Gun: {fileID: 8940972839427096591}
   FirePoint: {fileID: 9094159646958144461}
   BulletPrefab: {fileID: 7587244001271015866, guid: abbf312e994d6794a9c4c27db56dd47b,
     type: 3}
@@ -351,8 +354,9 @@ MonoBehaviour:
   BaseHealth: 200
   BaseAmmo: 50
   RespawnDelay: 5
-  StartingGun: {fileID: 0}
-  Body: {fileID: 0}
+  StartingGun: {fileID: 448590541930620395, guid: 5bad900fb4f658e4fab965e7149eaa78,
+    type: 3}
+  Body: {fileID: 5918494568478869569}
   ToastPanel: {fileID: 0}
 --- !u!1 &9094159647612649757
 GameObject:

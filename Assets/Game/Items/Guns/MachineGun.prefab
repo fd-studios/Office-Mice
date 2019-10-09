@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FiringRate: 20
-  FiringSound: {fileID: 0}
+  AudioTag: Audio:Gun
   Sprite: {fileID: 21300000, guid: 2f43e1c33d90f4d4c858d54875a7d49f, type: 3}
   FiringAnimation: {fileID: 0}
+  ProjectileType: {fileID: 7587244001271015866, guid: abbf312e994d6794a9c4c27db56dd47b,
+    type: 3}
+  ToastImage: {fileID: 21300000, guid: e50324b841baa3040a030711fdfb6f34, type: 3}
