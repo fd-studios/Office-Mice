@@ -13,5 +13,7 @@ public class UpgradeCrate : PowerUp
     {
         player.AddAmmo(Ammo);
         player.UpgradeWeapon(GunType, Duration);
+
+        if (player.PowerUp != null) player.PowerUp.Play();
     }
 }

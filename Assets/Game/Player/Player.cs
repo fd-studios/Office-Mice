@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     public Sprite Walking;
     public Sprite ShootingGun;
     public Sprite ShootingMachineGun;
+    public AudioSource Reload;
+    public AudioSource Damage;
+    public AudioSource PowerUp;
 
     public PlayerState State = PlayerState.Standing;
     public int BaseHealth = 200;
@@ -99,6 +102,7 @@ public class Player : MonoBehaviour
             {
                 Die();
             }
+            if (Damage != null && Health <= 50) Damage.Play();
             _movement.Run();
         }
     }
