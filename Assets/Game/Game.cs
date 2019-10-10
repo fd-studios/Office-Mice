@@ -29,14 +29,17 @@ public class Game : MonoBehaviour
             if (Lives > 0)
             {
                 Lives--;
-                StartCoroutine(_respawn(obj, seconds, callback));
             }
             else
             {
                 GameOver.Play();
                 StartCoroutine(GameOverEvent(seconds));
+                return;
             }
         }
+
+        if(seconds > 0)
+            StartCoroutine(_respawn(obj, seconds, callback));
     }
 
     IEnumerator _respawn(GameObject obj, int seconds, Action callback = null)
