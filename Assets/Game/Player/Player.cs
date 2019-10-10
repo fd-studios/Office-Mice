@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
                 Die();
             }
             if (Damage != null && Health <= 50) Damage.Play();
-            _movement.Run();
+            _movement.Run(3, 2);
         }
     }
 
@@ -144,5 +144,10 @@ public class Player : MonoBehaviour
     {
         Health += health;
         if (Health > BaseHealth) Health = BaseHealth;
+    }
+
+    public void AddSpeed(float timeOut)
+    {
+        _movement.Run(timeOut, 3);
     }
 }

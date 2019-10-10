@@ -19,7 +19,6 @@ public class Movement : MonoBehaviour
     public float FireAngle = 0;
     public Vector3 FireVector = Vector3.zero;
     public float WalkingSpeed = .1f;
-    public float RunningSpeed = .2f;
 
     const float MIN_DIR_MAG  = 0.15f;
     const float MIN_MOVE_MAG = 0.15f;
@@ -133,15 +132,17 @@ public class Movement : MonoBehaviour
         _oldPosition = _transform.position;
     }
 
-    public void Run()
+    public void Run(float timeout, float multiplier)
     {
-        _speed = RunningSpeed;
-        StartCoroutine(Tired());
+        if (_speed > WalkingSpeed) return;
+
+        _speed = WalkingSpeed * multiplier;
+        StartCoroutine(Tired(timeout));
     }
 
-    IEnumerator Tired()
+    IEnumerator Tired(float timeout)
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(timeout);
         _speed = WalkingSpeed;
         yield break;
     }

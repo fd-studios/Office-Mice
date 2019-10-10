@@ -45,7 +45,7 @@ public class ToastHandler : MonoBehaviour
 
     public void Toast(Sprite sprite, string title, string content, float time = 2, bool important = false)
     {
-        if (_important) return;
+        if (_important && !important) return;
         _important = important;
 
         Panel.SetActive(true);
