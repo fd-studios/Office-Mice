@@ -15,6 +15,7 @@ public class Mouse : Enemy
     Player player;
     NavMeshAgent agent;
 
+
     public GameObject hitEffect;
     public GameObject deathEffect;
     public Rigidbody2D rb;
@@ -23,6 +24,15 @@ public class Mouse : Enemy
     public float Damage = 10f;
     public int RushIncrement = 10;
     public float MaxSpeed = 30f;
+
+
+    Animator animator;
+
+    enum Animations {
+      Moving,
+      Hit,
+      Stunned,
+    }
 
     // Use this for initialization
     void Start()
@@ -36,13 +46,15 @@ public class Mouse : Enemy
         agent.Warp(transform.position);
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        animator = GetComponent<Animator>();
     }
 
     void ResetStats()
     {
         Speed = BaseSpeed * (1 + StatMultiplier / 20f);
         Damage = BaseDamage * (1 + StatMultiplier / 10f);
-        Health = BaseHealth * (int)(1 + StatMultiplier / 10f); 
+        Health = BaseHealth * (int)(1 + StatMultiplier / 10f);
+        animator.SetInteger ("state", (int)Animations.Moving);
     }
 
     void OnEnable()
@@ -55,7 +67,7 @@ public class Mouse : Enemy
         var heading = playerObj.transform.position - transform.position;
         var distance = heading.magnitude;
         _playerInSight = distance < 10;
-        agent.speed = System.Math.Min(Speed, RushIncrement);
+        agent.speed = Health > 0 ? System.Math.Min(Speed, RushIncrement) : 0;
         if (_beenHit || _playerInSight || _targetPlayer)
         {
             agent.SetDestination(player.transform.position);
@@ -75,7 +87,11 @@ public class Mouse : Enemy
 
     void FixedUpdate()
     {
-        rb.AddForce(_direction * System.Math.Min(Speed, RushIncrement));
+        if(Health > 0) {
+          rb.AddForce(_direction * System.Math.Min(Speed, RushIncrement));
+        } else {
+          rb.velocity = Vector2.zero;
+        }
     }
 
     public void TakeDamage(int damage)
@@ -84,15 +100,17 @@ public class Mouse : Enemy
         _beenHit = true;
         StartRush();
         var position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-        var effect = Instantiate(hitEffect, position, transform.rotation);
-        effect.transform.localScale = transform.localScale;
+        animator.SetInteger("state", (int)Animations.Hit);
         Health -= damage;
 
         if (Health <= 0)
         {
-            Die();
+            animator.SetInteger("state", (int)Animations.Stunned);
+            StartCoroutine(MouseDying());
+            return;
         }
-        Destroy(effect, 0.08f);
+
+        StartCoroutine(EndHit());
     }
 
     void StartRush(bool temp = false)
@@ -114,16 +132,27 @@ public class Mouse : Enemy
         yield break;
     }
 
+    IEnumerator EndHit()
+    {
+        yield return new WaitForSeconds(0.3f);
+        animator.SetInteger("state", (int)Animations.Moving);
+        yield break;
+    }
+
+    IEnumerator MouseDying()
+    {
+      Score score = player.GetComponentInChildren<Score>();
+      score.IncreaseScore(1 * StatMultiplier);
+      yield return new WaitForSeconds(2);
+      Die();
+      yield break;
+    }
+
     void Die()
     {
-        var deadMouse = Instantiate(deathEffect, transform.position, Quaternion.identity);
-        deadMouse.transform.localScale = transform.localScale;
         _targetPlayer = false;
         _beenHit = false;
         gameObject.SetActive(false);
-        Score score = player.GetComponentInChildren<Score>();
-        score.IncreaseScore(1 * StatMultiplier);
-        Destroy(deadMouse, 2f);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
