@@ -18,48 +18,41 @@ public class ToastHandler : MonoBehaviour
     }
 
     float _timeOut = 0f;
-
-    void ToastEnable(float delaySeconds)
-    {
-        Panel.SetActive(true);
-
-        _timeOut = delaySeconds;
-    }
+    
+    /// <summary>
+    /// current toast should not be replaced
+    /// </summary>
+    bool _important = false;
 
     public void ToastWeaponUpgrade(Sprite sprite)
     {
-        Title.text = "You got:";
-        Content.text = $"N-Strike Elite SurgeFire{Environment.NewLine}$18.88";
-        Image.sprite = sprite;
-
-        ToastEnable(3);
+        ToastItem(sprite, "N-Strike Elite SurgeFire", "$9.99", 3);
     }
 
     public void ToastWeaponDowngrade()
     {
-        Title.text = "You got:";
-        Content.text = $"N-Strike Elite Disruptor{Environment.NewLine}$9.99";
-        Image.sprite = weapon;
-
-        ToastEnable(3);
+        ToastItem(weapon, "N-Strike Elite Disruptor", "$9.99", 3);
     }
 
     public void ToastAmmo()
     {
-        Title.text = "You got:";
-        Content.text = $"N-Strike Elite Ammo{Environment.NewLine}$9.99";
-        Image.sprite = ammo;
-
-        ToastEnable(2);
+        ToastItem(ammo, "N-Strike Elite Ammo", "$9.99");
+    }
+    public void ToastItem(Sprite sprite, string title, string price, float time = 2)
+    {
+        Toast(sprite, "You got:", $"{title}{Environment.NewLine}{price}", time);
     }
 
-    public void ToastItem(Sprite sprite, string title, string price)
+    public void Toast(Sprite sprite, string title, string content, float time = 2, bool important = false)
     {
-        Title.text = "You got:";
-        Content.text = $"{title}{Environment.NewLine}{price}";
-        Image.sprite = sprite;
+        if (_important) return;
+        _important = important;
 
-        ToastEnable(2);
+        Panel.SetActive(true);
+        Title.text = title;
+        Content.text = content;
+        Image.sprite = sprite;
+        _timeOut = time;
     }
 
     // Update is called once per frame
@@ -69,7 +62,10 @@ public class ToastHandler : MonoBehaviour
         {
             _timeOut -= Time.deltaTime;
             if(_timeOut <= 0)
-                Panel.SetActive(false);
+            {
+                Panel.SetActive(false); 
+                _important = false;
+            }
         }
     }
 }
