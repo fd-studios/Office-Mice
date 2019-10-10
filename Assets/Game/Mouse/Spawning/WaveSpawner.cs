@@ -8,10 +8,9 @@ public partial class WaveSpawner : MonoBehaviour
 {
     int _nextWave = 0;
     int _waveCount = 1;
-    SpawnState _state = SpawnState.Counting;
+    SpawnState _state;
     float _searchCountdown = 1f;
     int _statMultiplier = 1;
-    int _countDown;
     GameObject[] _spawnPoints;
 
     public Wave[] waves;
@@ -26,9 +25,16 @@ public partial class WaveSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        waveCountDown = timeBetweenWaves;
-        _countDown = Mathf.RoundToInt(waveCountDown);
+        StartCountDown();
+
         _spawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
+    }
+
+    void StartCountDown()
+    {
+        Label.gameObject.SetActive(true);
+        _state = SpawnState.Counting;
+        waveCountDown = timeBetweenWaves;
     }
 
     // Update is called once per frame
@@ -36,46 +42,36 @@ public partial class WaveSpawner : MonoBehaviour
     {
         if (_state == SpawnState.Waiting)
         {
-            if (EnemiesAlive())
-            {
-                return;
-            }
-            WaveCompleted();
+            if (!EnemiesAlive())
+                WaveCompleted();
         }
-        if (waveCountDown <= 0)
+        else if(_state == SpawnState.Spawning)
         {
-            if (_state != SpawnState.Spawning)
-            {
-                StartCoroutine(SpawnWaves(waves[_nextWave]));
-            }
-        }
-        else
-        {
-            waveCountDown -= Time.smoothDeltaTime;
-            StartCoroutine(UpdateCountDown(Mathf.FloorToInt(waveCountDown)));
-        }
-        Label.gameObject.SetActive(_state == SpawnState.Counting);
-    }
 
-    IEnumerator UpdateCountDown(int countDown)
-    {
-        if (countDown >= 0 && _countDown != countDown)
+        }
+        else if(_state == SpawnState.Counting)
         {
-            yield return new WaitForSeconds(1);
 
-            if(_nextWave >= 0)
+            var i = (int)waveCountDown;
+            waveCountDown -= Time.deltaTime;
+            var j = (int)waveCountDown;
+
+            if (j < i)
             {
-                if (_countDown == 2)
+                Label.text = $"Wave {_waveCount}: {j + 1}";
+
+                if (i == 1)
                     Ready.Play();
-                else if (_countDown == 0)
+                else if (i == 0)
+                {
                     Begin.Play();
-
-                Label.text = $"Wave {_waveCount}: {_countDown + 1}";
+                    Label.gameObject.SetActive(false);
+                    StartCoroutine(SpawnWaves(waves[_nextWave]));
+                }
             }
-            _countDown = countDown;
         }
-        yield break;
     }
+
 
     IEnumerator SpawnWaves(Wave wave)
     {
@@ -118,8 +114,6 @@ public partial class WaveSpawner : MonoBehaviour
 
     void WaveCompleted()
     {
-        _state = SpawnState.Counting;
-        waveCountDown = timeBetweenWaves;
         _nextWave++;
         _waveCount++;
         if (_nextWave >= waves.Length)
@@ -127,6 +121,8 @@ public partial class WaveSpawner : MonoBehaviour
             _nextWave = 0;
             _statMultiplier += 1;
         }
+
+        StartCountDown();
     }
 
     IEnumerator StartRush(Wave wave)
