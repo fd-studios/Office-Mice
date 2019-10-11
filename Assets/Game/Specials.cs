@@ -22,16 +22,16 @@ public class Specials : MonoBehaviour
     {
         foreach(var se in SpecialEvents)
         {
-            if (se.StartSeconds < -se.ExpireSeconds) continue;
+            if (se.WaitingSeconds < -se.ExpireSeconds) continue;
 
-            se.StartSeconds -= Time.deltaTime;
-            if (se.StartSeconds < 0 && se.StartSeconds + Time.deltaTime >= 0)
+            se.WaitingSeconds -= Time.deltaTime;
+            if (se.WaitingSeconds < 0 && se.WaitingSeconds + Time.deltaTime >= 0)
             {
-                ToastHandler.Toast(se.Image, se.Title, se.Message, 4, true);
+                ToastHandler.Toast(se.Image, se.Title, se.Message, 5, true);
                 foreach (var item in se.Items)
                     item.SetActive(true);
             }
-            else if (se.StartSeconds < -se.ExpireSeconds)
+            else if (se.WaitingSeconds < -se.ExpireSeconds)
             {
                 var wasActive = false;
                 foreach (var item in se.Items)
@@ -41,8 +41,11 @@ public class Specials : MonoBehaviour
                         item.SetActive(false);
                     }
 
-                if(wasActive)
+                if (wasActive)
                     ToastHandler.Toast(se.Image, se.Title, se.ExpireMessage, 3, false);
+
+                if (se.RespawnSeconds > 0)
+                    se.WaitingSeconds = se.RespawnSeconds;
             }
         }
     }
@@ -51,8 +54,9 @@ public class Specials : MonoBehaviour
 [Serializable]
 public class SpecialEvent
 {
-    public float StartSeconds;
+    public float WaitingSeconds;
     public float ExpireSeconds;
+    public float RespawnSeconds;
     public Sprite Image;
     public string Title;
     public string Message;
