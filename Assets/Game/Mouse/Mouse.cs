@@ -6,15 +6,13 @@ using UnityEngine.AI;
 public class Mouse : Enemy
 {
     Vector2 _direction;
-    float xScale;
-    float yScale;
+
     bool _beenHit;
     bool _targetPlayer;
     bool _playerInSight;
-    GameObject playerObj;
     Player player;
     NavMeshAgent agent;
-
+    new Collider2D collider;
 
     public GameObject hitEffect;
     public GameObject deathEffect;
@@ -38,15 +36,14 @@ public class Mouse : Enemy
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerObj = GameObject.FindGameObjectWithTag("Player");
-        player = playerObj.GetComponent<Player>();
-        xScale = transform.localScale.x;
-        yScale = transform.localScale.y;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
         agent = GetComponent<NavMeshAgent>();
         agent.Warp(transform.position);
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         animator = GetComponent<Animator>();
+        collider = GetComponent<Collider2D>();
     }
 
     void ResetStats()
@@ -57,6 +54,8 @@ public class Mouse : Enemy
 
         if(animator != null)
             animator.SetInteger ("state", (int)Animations.Moving);
+
+        collider.enabled = true;
     }
 
     void OnEnable()
@@ -66,7 +65,7 @@ public class Mouse : Enemy
 
     void Update()
     {
-        var heading = playerObj.transform.position - transform.position;
+        var heading = player.transform.position - transform.position;
         var distance = heading.magnitude;
         _playerInSight = distance < 10;
         agent.speed = System.Math.Min(Speed, RushIncrement);
@@ -82,7 +81,7 @@ public class Mouse : Enemy
             _direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         }
 
-        if(Health > 0)
+        if(!IsDead)
         {
             var angle = Vector2.SignedAngle(Vector2.down, rb.velocity.normalized);
             var rotateVector = new Vector3(0, 0, angle);
@@ -112,6 +111,7 @@ public class Mouse : Enemy
 
         if (Health <= 0)
         {
+            collider.enabled = false;
             IsDead = true;
             Speed = 0;
             animator.SetInteger("state", (int)Animations.Stunned);
