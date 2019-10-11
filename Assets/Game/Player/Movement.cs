@@ -134,9 +134,10 @@ public class Movement : MonoBehaviour
 
     public void Run(float timeout, float multiplier)
     {
-        if (_speed > WalkingSpeed) return;
+        var newSpeed = WalkingSpeed * multiplier;
+        if (_speed >= newSpeed) return;
 
-        _speed = WalkingSpeed * multiplier;
+        _speed = newSpeed;
         StartCoroutine(Tired(timeout));
     }
 
