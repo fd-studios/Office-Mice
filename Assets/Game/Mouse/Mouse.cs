@@ -67,7 +67,7 @@ public class Mouse : Enemy
         var heading = playerObj.transform.position - transform.position;
         var distance = heading.magnitude;
         _playerInSight = distance < 10;
-        agent.speed = Health > 0 ? System.Math.Min(Speed, RushIncrement) : 0;
+        agent.speed = System.Math.Min(Speed, RushIncrement);
         if (_beenHit || _playerInSight || _targetPlayer)
         {
             agent.SetDestination(player.transform.position);
@@ -87,10 +87,13 @@ public class Mouse : Enemy
 
     void FixedUpdate()
     {
-        if(Health > 0) {
-          rb.AddForce(_direction * System.Math.Min(Speed, RushIncrement));
-        } else {
-          rb.velocity = Vector2.zero;
+        if (IsDead)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else
+        {
+            rb.AddForce(_direction * System.Math.Min(Speed, RushIncrement));
         }
     }
 
@@ -99,12 +102,13 @@ public class Mouse : Enemy
         if (Shot != null) Shot.Play();
         _beenHit = true;
         StartRush();
-        var position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
         animator.SetInteger("state", (int)Animations.Hit);
         Health -= damage;
 
         if (Health <= 0)
         {
+            IsDead = true;
+            Speed = 0;
             animator.SetInteger("state", (int)Animations.Stunned);
             StartCoroutine(MouseDying());
             return;
@@ -115,6 +119,7 @@ public class Mouse : Enemy
 
     void StartRush(bool temp = false)
     {
+        if (IsDead) return;
         Speed += RushIncrement;
         // cap the max speed
         if (Speed > MaxSpeed) Speed = MaxSpeed;
@@ -126,9 +131,10 @@ public class Mouse : Enemy
 
     IEnumerator EndRush()
     {
-        if(_targetPlayer) yield break;
+        if (_targetPlayer) yield break;
         yield return new WaitForSeconds(5);
         Speed -= RushIncrement;
+        if (Speed < 0) Speed = 0;
         yield break;
     }
 
@@ -157,9 +163,9 @@ public class Mouse : Enemy
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (!IsDead)
         {
-            if (player != null)
+            if (collision.tag == "Player" && player != null)
             {
                 player.TakeDamage(Damage);
             }

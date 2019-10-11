@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public float BaseDamage { get; set; } = 10f;
     public int Health { get; protected set; }
     public float Speed { get; protected set; }
+    public bool IsDead { get; set; }
 
     public virtual void Kill()
     {

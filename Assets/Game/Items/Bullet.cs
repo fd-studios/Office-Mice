@@ -27,14 +27,22 @@ public class Bullet : Projectile
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "Player" && collision.tag != "Upgrade")
+        switch (collision.tag)
         {
-            var mouse = collision.GetComponent<Mouse>();
-            if (mouse != null)
-            {
-                mouse.TakeDamage(Damage);
-            }
-            gameObject.SetActive(false);
+            case "Mouse":
+                var mouse = collision.GetComponent<Mouse>();
+                if (mouse != null)
+                {
+                    mouse.TakeDamage(Damage);
+                }
+                gameObject.SetActive(false);
+                break;
+            case "Wall":
+            case "Decor":
+                gameObject.SetActive(false);
+                break;
+            default:
+                break;
         }
     }
 }
