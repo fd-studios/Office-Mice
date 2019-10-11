@@ -42,8 +42,6 @@ public class Mouse : Enemy
         agent.Warp(transform.position);
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        animator = GetComponent<Animator>();
-        collider = GetComponent<Collider2D>();
     }
 
     void ResetStats()
@@ -52,9 +50,9 @@ public class Mouse : Enemy
         Damage = BaseDamage * (1 + StatMultiplier / 10f);
         Health = BaseHealth * (int)(1 + StatMultiplier / 10f);
 
-        if(animator != null)
-            animator.SetInteger ("state", (int)Animations.Moving);
-
+        animator = GetComponent<Animator>();
+        collider = GetComponent<Collider2D>();
+        animator.SetInteger ("state", (int)Animations.Moving);
         collider.enabled = true;
     }
 
