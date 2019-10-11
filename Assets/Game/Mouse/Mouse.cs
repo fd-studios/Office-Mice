@@ -54,7 +54,9 @@ public class Mouse : Enemy
         Speed = BaseSpeed * (1 + StatMultiplier / 20f);
         Damage = BaseDamage * (1 + StatMultiplier / 10f);
         Health = BaseHealth * (int)(1 + StatMultiplier / 10f);
-        animator.SetInteger ("state", (int)Animations.Moving);
+
+        if(animator != null)
+            animator.SetInteger ("state", (int)Animations.Moving);
     }
 
     void OnEnable()
@@ -80,9 +82,12 @@ public class Mouse : Enemy
             _direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         }
 
-        var angle = Vector2.SignedAngle(Vector2.down, rb.velocity.normalized);
-        var rotateVector = new Vector3(0, 0, angle);
-        transform.eulerAngles = rotateVector;
+        if(Health > 0)
+        {
+            var angle = Vector2.SignedAngle(Vector2.down, rb.velocity.normalized);
+            var rotateVector = new Vector3(0, 0, angle);
+            transform.eulerAngles = rotateVector;
+        }
     }
 
     void FixedUpdate()
