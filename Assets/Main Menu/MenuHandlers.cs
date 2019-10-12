@@ -21,7 +21,6 @@ public class MenuHandlers : MonoBehaviour
 
     public void NewGame()
     {
-        Destroy(runningBgm);
         SceneManager.LoadScene("ControlsScene", LoadSceneMode.Single);
     }
 
