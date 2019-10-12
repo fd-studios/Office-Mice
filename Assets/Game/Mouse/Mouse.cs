@@ -49,6 +49,7 @@ public class Mouse : Enemy
         Speed = BaseSpeed * (1 + StatMultiplier / 20f);
         Damage = BaseDamage * (1 + StatMultiplier / 10f);
         Health = BaseHealth * (int)(1 + StatMultiplier / 10f);
+        IsDead = false;
 
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
