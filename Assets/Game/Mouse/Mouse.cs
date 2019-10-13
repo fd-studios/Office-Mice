@@ -72,7 +72,7 @@ public class Mouse : Enemy
     {
         var heading = player.transform.position - transform.position;
         var distance = heading.magnitude;
-        _playerInSight = distance < 7;
+        _playerInSight = distance < 2;
         if (_beenHit || _playerInSight || _targetPlayer)
         {
             agent.SetDestination(player.transform.position);

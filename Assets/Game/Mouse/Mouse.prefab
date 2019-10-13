@@ -417,8 +417,8 @@ MonoBehaviour:
   Shot: {fileID: 0}
   chirp: {fileID: 4943502379327337037}
   Damage: 10
-  RushIncrement: 4
-  MaxSpeed: 20
+  RushIncrement: 3
+  MaxSpeed: 15
 --- !u!95 &95616924660584378
 Animator:
   serializedVersion: 3
