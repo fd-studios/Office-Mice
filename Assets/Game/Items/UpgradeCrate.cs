@@ -11,9 +11,7 @@ public class UpgradeCrate : PowerUp
 
     public override void OnPickup(Player player)
     {
-        player.AddAmmo(Ammo);
         player.UpgradeWeapon(GunType, Duration);
-
-        if (player.PowerUp != null) player.PowerUp.Play();
+        player.AddAmmo(Ammo);
     }
 }

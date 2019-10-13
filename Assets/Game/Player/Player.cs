@@ -20,9 +20,11 @@ public class Player : MonoBehaviour
     public Sprite Walking;
     public Sprite ShootingGun;
     public Sprite ShootingMachineGun;
-    public AudioSource Reload;
-    public AudioSource Damage;
-    public AudioSource PowerUp;
+
+    AudioSource _audioSource;
+    public AudioClip Reload;
+    public AudioClip Damage;
+    public AudioClip PowerUp;
 
     public PlayerState State = PlayerState.Standing;
     public int BaseHealth = 200;
@@ -40,6 +42,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _game = GameObject.FindObjectOfType<Game>();
+        _audioSource = GetComponent<AudioSource>();
         _spriteRenderer = Body.GetComponent<SpriteRenderer>();
         _movement = GetComponent<Movement>();
         _weapon = GetComponent<Weapon>();
@@ -73,6 +76,9 @@ public class Player : MonoBehaviour
         if(duration > 0f)
             StartCoroutine(Downgrade(duration));
 
+        _audioSource.clip = PowerUp;
+        _audioSource.Play();
+
         ToastPanel.ToastWeaponUpgrade(gun.ToastImage);
     }
 
@@ -102,7 +108,11 @@ public class Player : MonoBehaviour
             {
                 Die();
             }
-            if (Damage != null && Health <= 50) Damage.Play();
+            if (Damage != null && Health <= 50)
+            {
+                _audioSource.clip = Damage;
+                _audioSource.Play();
+            }
             _movement.Run(3, 2);
         }
     }
@@ -130,6 +140,12 @@ public class Player : MonoBehaviour
 
     public void AddAmmo(int ammo)
     {
+        if (Ammo <= 0 && !_audioSource.isPlaying)
+        {
+            _audioSource.clip = Reload;
+            _audioSource.Play();
+        }
+
         Ammo += ammo;
 
         ToastPanel.ToastAmmo();

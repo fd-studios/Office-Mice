@@ -9,7 +9,5 @@ public class AmmoCrate : PowerUp
     public override void OnPickup(Player player)
     {
         player.AddAmmo(Ammo);
-
-        if (player.Reload != null) player.Reload.Play();
     }
 }
