@@ -13,6 +13,7 @@ public class Mouse : Enemy
     Player player;
     NavMeshAgent agent;
     new Collider2D collider;
+    float directionChangeDelay = 0f;
 
     public GameObject hitEffect;
     public GameObject deathEffect;
@@ -26,10 +27,11 @@ public class Mouse : Enemy
 
     Animator animator;
 
-    enum Animations {
-      Moving,
-      Hit,
-      Stunned,
+    enum Animations
+    {
+        Moving,
+        Hit,
+        Stunned,
     }
 
     // Use this for initialization
@@ -53,7 +55,7 @@ public class Mouse : Enemy
 
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
-        animator.SetInteger ("state", (int)Animations.Moving);
+        animator.SetInteger("state", (int)Animations.Moving);
         collider.enabled = true;
     }
 
@@ -66,8 +68,7 @@ public class Mouse : Enemy
     {
         var heading = player.transform.position - transform.position;
         var distance = heading.magnitude;
-        _playerInSight = distance < 10;
-        agent.speed = System.Math.Min(Speed, RushIncrement);
+        _playerInSight = distance < 7;
         if (_beenHit || _playerInSight || _targetPlayer)
         {
             agent.SetDestination(player.transform.position);
@@ -76,15 +77,28 @@ public class Mouse : Enemy
         else
         {
             agent.ResetPath();
-
-            _direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            GetHeading();
         }
 
-        if(!IsDead)
+        if (!IsDead)
         {
-            var angle = Vector2.SignedAngle(Vector2.down, rb.velocity.normalized);
+            var angle = Vector2.SignedAngle(Vector2.down, _direction);
             var rotateVector = new Vector3(0, 0, angle);
             transform.eulerAngles = rotateVector;
+        }
+    }
+
+    void GetHeading()
+    {
+        if (directionChangeDelay > 0f)
+        {
+            directionChangeDelay -= Time.deltaTime;
+            return;
+        }
+        else
+        {
+            directionChangeDelay = Random.Range(0, 5);
+            _direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         }
     }
 
@@ -93,6 +107,12 @@ public class Mouse : Enemy
         if (IsDead)
         {
             rb.velocity = Vector2.zero;
+            agent.velocity = Vector2.zero;
+        }
+        else if (_beenHit || _playerInSight || _targetPlayer)
+        {
+            agent.speed = System.Math.Min(Speed, RushIncrement);
+            //rb.velocity = _direction * System.Math.Min(Speed, RushIncrement);
         }
         else
         {
@@ -127,7 +147,7 @@ public class Mouse : Enemy
         Speed += RushIncrement;
         // cap the max speed
         if (Speed > MaxSpeed) Speed = MaxSpeed;
-        if(temp) StartCoroutine(EndRush());
+        if (temp) StartCoroutine(EndRush());
 
         if (Random.value < .2f)
             chirp.Play();
@@ -151,11 +171,11 @@ public class Mouse : Enemy
 
     IEnumerator MouseDying()
     {
-      Score score = player.GetComponentInChildren<Score>();
-      score.IncreaseScore(1 * StatMultiplier);
-      yield return new WaitForSeconds(2);
-      Die();
-      yield break;
+        Score score = player.GetComponentInChildren<Score>();
+        score.IncreaseScore(1 * StatMultiplier);
+        yield return new WaitForSeconds(2);
+        Die();
+        yield break;
     }
 
     void Die()
