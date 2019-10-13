@@ -17,14 +17,9 @@ public class Mouse : Enemy
     float directionChangeDelay = 0f;
     Animator animator;
 
-    public GameObject hitEffect;
-    public GameObject deathEffect;
     public Rigidbody2D rb;
     public AudioSource Shot;
     public AudioSource chirp;
-    public float Damage = 10f;
-    public int RushIncrement = 10;
-    public float MaxSpeed = 30f;
 
 
     enum Animations
@@ -49,9 +44,11 @@ public class Mouse : Enemy
 
     void ResetStats()
     {
-        Speed = BaseSpeed * (1 + StatMultiplier / 20f);
-        Damage = BaseDamage * (1 + StatMultiplier / 10f);
-        Health = BaseHealth * (int)(1 + StatMultiplier / 10f);
+        Speed = BaseSpeed * (1 + StatMultiplier / 3f);
+        Damage = BaseDamage * (1 + StatMultiplier / 3f);
+        Health = BaseHealth * (int)(1 + StatMultiplier / 3f);
+        RushIncrement = BaseRushIncrement * (1 + StatMultiplier / 3f);
+        PlayerDetectionDistance = BasePlayerDetectionDistance * (1 + StatMultiplier / 3f);
         IsDead = false;
         _stunned = false;
         _targetPlayer = false;
@@ -72,7 +69,7 @@ public class Mouse : Enemy
     {
         var heading = player.transform.position - transform.position;
         var distance = heading.magnitude;
-        _playerInSight = distance < 2;
+        _playerInSight = distance < PlayerDetectionDistance;
         if (_beenHit || _playerInSight || _targetPlayer)
         {
             agent.SetDestination(player.transform.position);
