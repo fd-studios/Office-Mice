@@ -111,8 +111,8 @@ public class Mouse : Enemy
         }
         else if (_beenHit || _playerInSight || _targetPlayer)
         {
-            agent.speed = System.Math.Min(Speed, RushIncrement);
-            //rb.velocity = _direction * System.Math.Min(Speed, RushIncrement);
+            //agent.speed = System.Math.Min(Speed, RushIncrement);
+            rb.velocity = _direction * System.Math.Min(Speed, RushIncrement);
         }
         else
         {
