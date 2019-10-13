@@ -10,10 +10,12 @@ public class Mouse : Enemy
     bool _beenHit;
     bool _targetPlayer;
     bool _playerInSight;
+    bool _stunned;
     Player player;
     NavMeshAgent agent;
     new Collider2D collider;
     float directionChangeDelay = 0f;
+    Animator animator;
 
     public GameObject hitEffect;
     public GameObject deathEffect;
@@ -24,8 +26,6 @@ public class Mouse : Enemy
     public int RushIncrement = 10;
     public float MaxSpeed = 30f;
 
-
-    Animator animator;
 
     enum Animations
     {
@@ -44,6 +44,7 @@ public class Mouse : Enemy
         agent.Warp(transform.position);
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.speed = 0;
     }
 
     void ResetStats()
@@ -52,6 +53,9 @@ public class Mouse : Enemy
         Damage = BaseDamage * (1 + StatMultiplier / 10f);
         Health = BaseHealth * (int)(1 + StatMultiplier / 10f);
         IsDead = false;
+        _stunned = false;
+        _targetPlayer = false;
+        _beenHit = false;
 
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
@@ -104,14 +108,11 @@ public class Mouse : Enemy
 
     void FixedUpdate()
     {
-        if (IsDead)
+        if (_stunned || IsDead)
+            return;
+
+        if (_beenHit || _playerInSight || _targetPlayer)
         {
-            rb.velocity = Vector2.zero;
-            agent.velocity = Vector2.zero;
-        }
-        else if (_beenHit || _playerInSight || _targetPlayer)
-        {
-            //agent.speed = System.Math.Min(Speed, RushIncrement);
             rb.velocity = _direction * System.Math.Min(Speed, RushIncrement);
         }
         else
@@ -123,22 +124,24 @@ public class Mouse : Enemy
     public void TakeDamage(int damage)
     {
         if (Shot != null) Shot.Play();
-        _beenHit = true;
-        StartRush();
-        animator.SetInteger("state", (int)Animations.Hit);
         Health -= damage;
+        rb.velocity = Vector2.zero;
 
         if (Health <= 0)
         {
             collider.enabled = false;
             IsDead = true;
-            Speed = 0;
             animator.SetInteger("state", (int)Animations.Stunned);
             StartCoroutine(MouseDying());
-            return;
         }
-
-        StartCoroutine(EndHit());
+        else
+        {
+            _beenHit = true;
+            StartRush();
+            _stunned = true;
+            animator.SetInteger("state", (int)Animations.Hit);
+            StartCoroutine(EndHit());
+        }
     }
 
     void StartRush(bool temp = false)
@@ -166,6 +169,7 @@ public class Mouse : Enemy
     {
         yield return new WaitForSeconds(0.3f);
         animator.SetInteger("state", (int)Animations.Moving);
+        _stunned = false;
         yield break;
     }
 
@@ -180,8 +184,6 @@ public class Mouse : Enemy
 
     void Die()
     {
-        _targetPlayer = false;
-        _beenHit = false;
         gameObject.SetActive(false);
     }
 
