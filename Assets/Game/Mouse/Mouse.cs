@@ -117,7 +117,7 @@ public class Mouse : Enemy
         }
         else
         {
-            rb.AddForce(_direction * System.Math.Min(Speed, RushIncrement));
+            rb.velocity = _direction * System.Math.Min(Speed, RushIncrement);
         }
     }
 
@@ -187,13 +187,18 @@ public class Mouse : Enemy
         gameObject.SetActive(false);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D otherCollider)
     {
         if (!IsDead)
         {
-            if (collision.tag == "Player" && player != null)
+            if (otherCollider.tag == "Player" && player != null)
             {
                 player.TakeDamage(Damage);
+            }
+            else if (otherCollider.tag == "Wall")
+            {
+                directionChangeDelay = 0f;
+                GetHeading();
             }
         }
     }
