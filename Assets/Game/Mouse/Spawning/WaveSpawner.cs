@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -91,7 +90,7 @@ public partial class WaveSpawner : MonoBehaviour
     void SpawnEnemy(Wave wave)
     {
         var enemy = ObjectPooler.SharedInstance.GetPooledObject<Enemy>(wave.ObjectTag);
-        var spawnPoints = _spawnPoints[Random.Range(1, _spawnPoints.Length) - 1];
+        var spawnPoints = _spawnPoints[UnityEngine.Random.Range(1, _spawnPoints.Length) - 1];
         if (enemy != null)
         {
             enemy.transform.position = spawnPoints.transform.position;
@@ -138,3 +137,16 @@ public partial class WaveSpawner : MonoBehaviour
         yield break;
     }
 }
+
+[Serializable]
+public class Wave
+{
+    public string Name;
+    public Enemy Enemy;
+    public int Count;
+    public float Rate;
+    public int RushTimer;
+    public string ObjectTag;
+}
+
+public enum SpawnState { Spawning, Waiting, Counting }
