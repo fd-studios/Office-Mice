@@ -16624,7 +16624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpecialEvents:
-  - WaitingSeconds: 180
+  - WaitingSeconds: 150
     ExpireSeconds: 20
     RespawnSeconds: 180
     Image: {fileID: 21300000, guid: 8567055ac1c2c774e9ee6c7ab06da785, type: 3}
@@ -16633,17 +16633,17 @@ MonoBehaviour:
     ExpireMessage: Gone!
     Items:
     - {fileID: 1178291740}
-  - WaitingSeconds: 120
+  - WaitingSeconds: 90
     ExpireSeconds: 20
-    RespawnSeconds: 120
+    RespawnSeconds: 180
     Image: {fileID: 21300000, guid: 7d355673e363c834a8dfd602ba15ad52, type: 3}
     Title: Justin Steiner
     Message: Cold brew is back for a limited time in East kitchen
     ExpireMessage: Never again
     Items:
     - {fileID: 1222057796}
-  - WaitingSeconds: 80
-    ExpireSeconds: 20
+  - WaitingSeconds: 200
+    ExpireSeconds: 30
     RespawnSeconds: 0
     Image: {fileID: 21300000, guid: 730a423c82f205a468b469469b550623, type: 3}
     Title: Sample Sale!
