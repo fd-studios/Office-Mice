@@ -39,7 +39,6 @@ public class Mouse : Enemy
         agent.Warp(transform.position);
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        agent.speed = 0;
     }
 
     void ResetStats()
@@ -110,11 +109,13 @@ public class Mouse : Enemy
 
         if (_beenHit || _playerInSight || _targetPlayer)
         {
-            rb.velocity = _direction * System.Math.Min(Speed, RushIncrement);
+            rb.velocity = Vector2.zero;
+            agent.speed = System.Math.Min(Speed, RushIncrement);
         }
         else
         {
             rb.velocity = _direction * System.Math.Min(Speed, RushIncrement);
+            agent.speed = 0;
         }
     }
 
@@ -123,6 +124,7 @@ public class Mouse : Enemy
         if (Shot != null) Shot.Play();
         Health -= damage;
         rb.velocity = Vector2.zero;
+        agent.speed = 0;
 
         if (Health <= 0)
         {
