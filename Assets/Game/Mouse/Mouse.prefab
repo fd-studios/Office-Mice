@@ -356,6 +356,7 @@ MonoBehaviour:
   BaseSpeed: 3
   BaseDamage: 10
   BaseRushIncrement: 3
+  BasePlayerDetectionDistance: 3
   MaxSpeed: 15
   rb: {fileID: 0}
   Shot: {fileID: 0}
