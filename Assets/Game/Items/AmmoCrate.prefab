@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RespawnDelay: 30
-  Ammo: 30
+  Ammo: 60
 --- !u!212 &5486647415344502282
 SpriteRenderer:
   m_ObjectHideFlags: 0
