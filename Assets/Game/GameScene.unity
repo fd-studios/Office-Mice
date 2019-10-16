@@ -145,7 +145,7 @@ RectTransform:
   m_GameObject: {fileID: 17879157}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 0}
   m_Children: []
   m_Father: {fileID: 2141706701}
   m_RootOrder: 2
@@ -174,11 +174,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_Font: {fileID: 12800000, guid: 9ebb6ca5ee4094addac513cf8528f1e1, type: 2}
+    m_FontSize: 0
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -186,9 +186,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Ammo
-
-'
+  m_Text: AMMO
 --- !u!222 &17879160
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16759,7 +16757,7 @@ RectTransform:
   m_GameObject: {fileID: 747884189}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 0}
   m_Children: []
   m_Father: {fileID: 2141706701}
   m_RootOrder: 0
@@ -16767,7 +16765,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 20, y: -10}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &747884191
 MonoBehaviour:
@@ -16788,19 +16786,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_Font: {fileID: 12800000, guid: 9ebb6ca5ee4094addac513cf8528f1e1, type: 2}
+    m_FontSize: 0
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 200
     m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
+    m_AlignByGeometry: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Score
+  m_Text: SCORE
 --- !u!222 &747884192
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16906,15 +16904,15 @@ RectTransform:
   m_GameObject: {fileID: 749052315}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 2141706701}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -60, y: 124}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &749052317
 MonoBehaviour:
@@ -16935,19 +16933,21 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 40
+    m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MinSize: 0
+    m_MaxSize: 60
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Wave 1: '
+  m_Text: 'Wave 1
+
+'
 --- !u!222 &749052318
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18424,7 +18424,7 @@ RectTransform:
   m_GameObject: {fileID: 1085168764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 2141706701}
   m_RootOrder: 1
@@ -18453,11 +18453,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: 9ebb6ca5ee4094addac513cf8528f1e1, type: 2}
+    m_FontSize: 0
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -26048,7 +26048,7 @@ Tilemap:
   - first: {x: -28, y: -1, z: 0}
     second:
       m_TileIndex: 40
-      m_TileSpriteIndex: 42
+      m_TileSpriteIndex: 50
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -26084,7 +26084,7 @@ Tilemap:
   - first: {x: 23, y: -1, z: 0}
     second:
       m_TileIndex: 13
-      m_TileSpriteIndex: 41
+      m_TileSpriteIndex: 46
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -26120,7 +26120,7 @@ Tilemap:
   - first: {x: -43, y: 0, z: 0}
     second:
       m_TileIndex: 49
-      m_TileSpriteIndex: 40
+      m_TileSpriteIndex: 42
       m_TileMatrixIndex: 0
       m_TileColorIndex: 2
       m_ObjectToInstantiate: {fileID: 0}
@@ -26138,7 +26138,7 @@ Tilemap:
   - first: {x: -37, y: 0, z: 0}
     second:
       m_TileIndex: 27
-      m_TileSpriteIndex: 33
+      m_TileSpriteIndex: 41
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -26183,7 +26183,7 @@ Tilemap:
   - first: {x: -27, y: 1, z: 0}
     second:
       m_TileIndex: 39
-      m_TileSpriteIndex: 39
+      m_TileSpriteIndex: 40
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -26219,7 +26219,7 @@ Tilemap:
   - first: {x: -23, y: 1, z: 0}
     second:
       m_TileIndex: 37
-      m_TileSpriteIndex: 31
+      m_TileSpriteIndex: 39
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -26615,7 +26615,7 @@ Tilemap:
   - first: {x: -40, y: 6, z: 0}
     second:
       m_TileIndex: 9
-      m_TileSpriteIndex: 29
+      m_TileSpriteIndex: 33
       m_TileMatrixIndex: 2
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -26642,7 +26642,7 @@ Tilemap:
   - first: {x: -40, y: 7, z: 0}
     second:
       m_TileIndex: 12
-      m_TileSpriteIndex: 25
+      m_TileSpriteIndex: 31
       m_TileMatrixIndex: 2
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -26660,7 +26660,7 @@ Tilemap:
   - first: {x: -39, y: 8, z: 0}
     second:
       m_TileIndex: 8
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 29
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -27047,7 +27047,7 @@ Tilemap:
   - first: {x: 7, y: 13, z: 0}
     second:
       m_TileIndex: 36
-      m_TileSpriteIndex: 17
+      m_TileSpriteIndex: 25
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -31117,10 +31117,10 @@ Tilemap:
     m_Data: {fileID: 21300944, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300888, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300736, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300300, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 2
@@ -31134,7 +31134,7 @@ Tilemap:
   - m_RefCount: 4
     m_Data: {fileID: 21300986, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300306, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
+    m_Data: {fileID: 21300736, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300926, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 3
@@ -31142,15 +31142,15 @@ Tilemap:
   - m_RefCount: 3
     m_Data: {fileID: 21300938, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300308, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
+    m_Data: {fileID: 21300300, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300942, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300846, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
+    m_Data: {fileID: 21300306, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300940, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300886, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
+    m_Data: {fileID: 21300308, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300880, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 3
@@ -31162,29 +31162,29 @@ Tilemap:
   - m_RefCount: 3
     m_Data: {fileID: 21300844, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 1
+    m_Data: {fileID: 21300846, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
+  - m_RefCount: 1
     m_Data: {fileID: 21300842, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 1
+    m_Data: {fileID: 21300886, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
+  - m_RefCount: 1
     m_Data: {fileID: 589863244}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300576, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300520, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 7
     m_Data: {fileID: 21300878, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: 21300988, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 21300996, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300576, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 21300790, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 21300682, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300876, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300520, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300518, guid: 9410bf2262fd19740b8434306714b91d, type: 3}
   - m_RefCount: 218
@@ -44268,7 +44268,7 @@ RectTransform:
   m_GameObject: {fileID: 2022633833}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 2141706701}
   m_RootOrder: 3
@@ -44297,11 +44297,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: 9ebb6ca5ee4094addac513cf8528f1e1, type: 2}
+    m_FontSize: 0
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0

@@ -57,7 +57,8 @@ public partial class WaveSpawner : MonoBehaviour
 
             if (j < i)
             {
-                Label.text = $"Wave {_waveCount}: {j + 1}";
+                Label.text = $@"Wave {_waveCount} 
+{j + 1}";
 
                 if (i == 1)
                     Ready.Play();
