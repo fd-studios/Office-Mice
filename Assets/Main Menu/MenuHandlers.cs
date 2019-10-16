@@ -7,10 +7,20 @@ using UnityEngine.UI;
 public class MenuHandlers : MonoBehaviour
 {
     public static GameObject runningBgm;
+    public GameObject bgm;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (runningBgm != null)
+        {
+            Destroy(bgm);
+        }
+        else
+        {
+            runningBgm = bgm;
+            DontDestroyOnLoad(bgm);
+        }
     }
 
     // Update is called once per frame
