@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SnapShoot: 0
-  SnapMove: 1
+  SnapMove: 0
   MouseShoot: 0
   Firing: 0
   FireAngle: 0

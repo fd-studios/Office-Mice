@@ -34,20 +34,28 @@ public class MenuHandlers : MonoBehaviour
         SceneManager.LoadScene("ControlsScene", LoadSceneMode.Single);
     }
 
+    void GameStart()
+    {
+        Destroy(runningBgm);
+        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+    }
+
     public void MouseStart()
     {
         PlayerPrefs.SetInt("aim", 0);
-
-        Destroy(runningBgm);
-        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+        GameStart();
     }
 
     public void ArrowStart()
     {
         PlayerPrefs.SetInt("aim", 1);
+        GameStart();
+    }
 
-        Destroy(runningBgm);
-        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+    public void TouchStart()
+    {
+        PlayerPrefs.SetInt("aim", 2);
+        GameStart();
     }
 
 

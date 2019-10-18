@@ -11,9 +11,13 @@ public class Movement : MonoBehaviour
     float _speed;
 
 
-    public bool SnapShoot = true;
-    public bool SnapMove = true;
-    public bool MouseShoot = true;
+    public bool SnapShoot = false;
+    public bool SnapMove = false;
+
+    public GameObject TouchPanel1, TouchPanel2;
+    InputType _inputType = InputType.Mouse;
+
+    public enum InputType { Mouse = 0, Arrow, Touch }
 
     public bool Firing = false;
     public float FireAngle = 0;
@@ -34,8 +38,16 @@ public class Movement : MonoBehaviour
         // Start the player off facing to the right
         _transform.eulerAngles = Vector2.right;
 
-        MouseShoot = PlayerPrefs.GetInt("aim") == 0;
+        _inputType = (InputType)PlayerPrefs.GetInt("aim");
+
+        if(_inputType == InputType.Touch)
+        {
+            TouchPanel1.SetActive(true);
+            TouchPanel2.SetActive(true);
+        }
     }
+
+    Vector2 _touchMove;
 
     /// <summary>
     /// Have the character face in the direction of this vector, checking
@@ -46,7 +58,7 @@ public class Movement : MonoBehaviour
     {
         if (_player.Health <= 0) return;
 
-        if (MouseShoot)
+        if (_inputType == InputType.Mouse)
         {
             //rotate player sprite toward mouse pointer
             var mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -56,6 +68,36 @@ public class Movement : MonoBehaviour
             _transform.eulerAngles = new Vector3(0, 0, angle);
 
             Firing = Input.GetMouseButton(0);
+
+            if (Firing)
+                _player.State = Player.PlayerState.ShootingGun;
+            else
+                _player.State = Player.PlayerState.Walking;
+            return;
+        }
+        else if (_inputType == InputType.Touch)
+        {
+            _touchMove = Vector2.zero;
+            Firing = false;
+
+            var max = Screen.height / 2;
+
+            foreach (var touch in Input.touches)
+                //if (touch.position.x - 61.5f < 1 && touch.position.y - 25.6f < 1)
+                //    continue;
+                if (touch.position.x < max && touch.position.y < max)
+                {
+                    _touchMove = touch.position - new Vector2(max / 2, max / 2);
+                }
+                else if (touch.position.x > Screen.width - max && touch.position.y < max)
+                {
+                    var vector = touch.position - new Vector2(Screen.width - max / 2, max / 2);
+                    var angle = Vector2.SignedAngle(Vector3.right, vector);
+
+                    _transform.eulerAngles = new Vector3(0, 0, angle);
+                    Firing = true;
+                }
+
             if (Firing)
                 _player.State = Player.PlayerState.ShootingGun;
             else
@@ -107,7 +149,13 @@ public class Movement : MonoBehaviour
 
         var shootHoriz = Input.GetAxis("ShootHoriz");
         var shootVert  = Input.GetAxis("ShootVert");
-        var shoot      = new Vector3(shootHoriz, shootVert, 0);   
+        var shoot      = new Vector3(shootHoriz, shootVert, 0);
+
+
+        if (_touchMove != Vector2.zero)
+        {
+            move = _touchMove;
+        }
 
         // Snap movement to 45 deg increments so if using a 
         // joystick you don't get more accuracy in movement than
