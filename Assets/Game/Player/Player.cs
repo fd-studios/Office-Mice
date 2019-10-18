@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public enum PlayerState { Standing, Walking, ShootingGun }
+    public enum PlayerState { Standing, Walking, ShootingGun, Dead }
 
     Game _game;
     SpriteRenderer _spriteRenderer;
@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public Sprite Walking;
     public Sprite ShootingGun;
     public Sprite ShootingMachineGun;
+    public Sprite Dead;
 
     AudioSource _audioSource;
     public AudioClip Reload;
@@ -52,9 +53,15 @@ public class Player : MonoBehaviour
         Ammo = BaseAmmo;
     }
 
+    PlayerState _lastState = PlayerState.Dead;
+
     // Update is called once per frame
     void Update()
     {
+        if (State == _lastState) return;
+        _lastState = State;
+        _spriteRenderer.sortingOrder = 1;
+
         switch (State)
         {
             case PlayerState.Standing:
@@ -64,7 +71,12 @@ public class Player : MonoBehaviour
                 _spriteRenderer.sprite = Walking;
                 break;
             case PlayerState.ShootingGun:
-                _spriteRenderer.sprite = ShootingGun;
+                if(_weapon.HasGun)
+                    _spriteRenderer.sprite = ShootingGun;
+                break;
+            case PlayerState.Dead:
+                _spriteRenderer.sprite = Dead;
+                _spriteRenderer.sortingOrder = 0;
                 break;
         }
     }
@@ -98,6 +110,8 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (Health <= 0) return;
+
         var now = DateTime.Now;
         if (now - _hitDelay > _lastHit)
         {
@@ -113,14 +127,15 @@ public class Player : MonoBehaviour
                 _audioSource.clip = Damage;
                 _audioSource.Play();
             }
-            _movement.Run(3, 2);
+            _movement.Run(1.5f, 2);
         }
     }
 
     public void Die()
     {
-        gameObject.SetActive(false);
-        _weapon.EquipGun(StartingGun.GetComponent<Gun>());
+        State = PlayerState.Dead;
+        transform.Find("Bleed").gameObject.SetActive(true);
+
         _game.Respwan(gameObject, RespawnDelay, OnRespawn);
     }
 
@@ -131,6 +146,8 @@ public class Player : MonoBehaviour
         Ammo = BaseAmmo;
         transform.position = new Vector3(0, 1, -1);
         transform.rotation = new Quaternion();
+        State = PlayerState.Standing;
+        transform.Find("Bleed").gameObject.SetActive(false);
 
         var go = FindObjectOfType<WaveSpawner>().Begin;
         go.Play();

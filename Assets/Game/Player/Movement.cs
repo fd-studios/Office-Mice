@@ -44,6 +44,8 @@ public class Movement : MonoBehaviour
     /// <param name="dir"></param>
     void Face(Vector3 dir)
     {
+        if (_player.Health <= 0) return;
+
         if (MouseShoot)
         {
             //rotate player sprite toward mouse pointer
@@ -92,6 +94,8 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (_player.Health <= 0) return;
+
         // The Axis names are under Project Settings ... Input
         // When two axis settings have the same name the one with
         // the larger magnitude wins apparently. We have two of each:
