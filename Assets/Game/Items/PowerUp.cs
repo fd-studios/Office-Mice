@@ -7,15 +7,25 @@ public abstract class PowerUp : MonoBehaviour
     Game _game;
 
     protected Transform _transform;
+    protected SpriteRenderer _sprite;
     public int RespawnDelay = 60;
 
     public abstract void OnPickup(Player player);
 
+    protected virtual void UpdateItem() { }
+
     private void Start()
     {
-        _game = GameObject.FindObjectOfType<Game>();
+        _game = FindObjectOfType<Game>();
         _transform = GetComponent<Transform>();
     }
+
+    private void OnEnable()
+    {
+        _sprite = GetComponent<SpriteRenderer>();
+        UpdateItem();
+    }
+
 
     void OnTriggerEnter2D(Collider2D collision)
     {

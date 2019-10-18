@@ -48,9 +48,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RespawnDelay: 60
   Heal: 50
+  SpeedTime: 0
   ToastIcon: {fileID: 21300000, guid: 4268e0ae6bf64774db6b26341235569e, type: 3}
-  Title: Famous Amos Bite Size
-  Price: $6.72 for 20
+  Title: 
+  Price: 
+  Float: 1
+  Special: 0
+  snacks:
+  - Image: {fileID: 21300000, guid: 7676a3c3e42004045a7726e6b77884e5, type: 3}
+    ToastImage: {fileID: 21300000, guid: 4268e0ae6bf64774db6b26341235569e, type: 3}
+    Title: Famous Amos Bite Size
+    Price: $6.72 for 20
+  - Image: {fileID: 21300000, guid: 5b3e51835b7603947a56372a1b9e51b9, type: 3}
+    ToastImage: {fileID: 21300000, guid: d1fa95ddb77caea4ba1ca2e345930134, type: 3}
+    Title: Taco Bell Tortilla Chips, FIRE
+    Price: $1.38
+  - Image: {fileID: 21300000, guid: ba2ae87088031b044a85855e2039bec3, type: 3}
+    ToastImage: {fileID: 21300000, guid: 71d8d3b45a20c59458157e2533993fd2, type: 3}
+    Title: CLIF Bar Chocolate Chip Energy Bars
+    Price: $16.34 for 18
+  - Image: {fileID: 21300000, guid: 0f0046118a831304cbceb4dff6bdd19d, type: 3}
+    ToastImage: {fileID: 21300000, guid: c27d6ac25b017104b9530db443fde39d, type: 3}
+    Title: Popcorn Indiana Sweet & Salty Kettle Corn
+    Price: $2.68
 --- !u!50 &5596571856073652026
 Rigidbody2D:
   serializedVersion: 4
