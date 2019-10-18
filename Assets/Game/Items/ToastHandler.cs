@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Game.Items.Guns;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ public class ToastHandler : MonoBehaviour
     public Image Image;
     public GameObject Panel;
 
-    public Sprite ammo, weapon, weaponUpgrade;
+    public Sprite ammo;
 
     // Start is called before the first frame update
     void Start()
@@ -24,15 +25,11 @@ public class ToastHandler : MonoBehaviour
     /// </summary>
     bool _important = false;
 
-    public void ToastWeaponUpgrade(Sprite sprite)
+    public void ToastWeaponUpgrade(Gun gun)
     {
-        ToastItem(sprite, "N-Strike Elite SurgeFire", "$9.99", 3);
+        ToastItem(gun.ToastImage, gun.ToastTitle, $"${gun.ToastPrice}", 3);
     }
-
-    public void ToastWeaponDowngrade()
-    {
-        ToastItem(weapon, "N-Strike Elite Disruptor", "$9.99", 3);
-    }
+    
 
     public void ToastAmmo()
     {

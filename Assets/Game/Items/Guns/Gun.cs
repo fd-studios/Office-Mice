@@ -20,6 +20,9 @@ namespace Assets.Game.Items.Guns
         public Sprite Sprite;
         public GameObject FiringAnimation;
         public GameObject ProjectileType;
+
+        public string ToastTitle;
+        public float ToastPrice;
         public Sprite ToastImage;
 
         public Projectile Projectile

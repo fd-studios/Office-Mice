@@ -49,4 +49,6 @@ MonoBehaviour:
   FiringAnimation: {fileID: 0}
   ProjectileType: {fileID: 7587244001271015866, guid: abbf312e994d6794a9c4c27db56dd47b,
     type: 3}
+  ToastTitle: N-Strike Elite Disruptor
+  ToastPrice: 9.99
   ToastImage: {fileID: 21300000, guid: 5e3e499ab9607b943b46dfdff6ddf243, type: 3}

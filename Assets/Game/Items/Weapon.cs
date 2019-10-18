@@ -16,22 +16,21 @@ public class Weapon : MonoBehaviour
     public Transform FirePoint;
     public GameObject BulletPrefab;
 
+    public bool HasGun => _gun != null;
+
+    Movement _movement;
+
     private void Start()
     {
         _spriteRenderer = Gun.GetComponent<SpriteRenderer>();
         _player = GetComponent<Player>();
+        _movement = GetComponent<Movement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        var movement = GetComponent<Movement>();
-        if (movement != null && movement.Firing)
-        {
-            _spriteRenderer.sprite = _gun.Sprite;
-            Shoot();
-        }
-        else if (Input.GetButtonDown("Fire1"))
+        if (HasGun && (_movement.Firing || Input.GetButtonDown("Fire1")))
         {
             _spriteRenderer.sprite = _gun.Sprite;
             Shoot();
@@ -42,8 +41,13 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void EquipGun(Gun gun)
+    public void EquipGun(Gun gun, bool showToast = true)
     {
+        if (showToast && (!HasGun || gun.ToastTitle != _gun.ToastTitle))
+            _player.ToastPanel.ToastWeaponUpgrade(gun);
+        if (!HasGun || gun.ToastPrice > _gun.ToastPrice)
+            _player.SayPowerUp();
+
         _gun = gun;
         _gun.SetFirePoint(FirePoint);
         _shotDelay = new TimeSpan(0, 0, 0, 0, Mathf.RoundToInt(1000f / _gun.FiringRate));

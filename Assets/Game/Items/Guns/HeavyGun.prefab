@@ -49,4 +49,6 @@ MonoBehaviour:
   FiringAnimation: {fileID: 0}
   ProjectileType: {fileID: 3551805641684144915, guid: 6a80dd12999d9ee42abccef2c718b0b2,
     type: 3}
+  ToastTitle: Hog Wild Atomic Power Popper
+  ToastPrice: 17.3
   ToastImage: {fileID: 21300000, guid: 8f1569b64d45b3b428f9ea062ba46293, type: 3}

@@ -16,7 +16,8 @@ public class Bleed : MonoBehaviour
 
     private void OnEnable()
     {
-        _blood.transform.localScale = _startScale;
+        if(_blood != null)
+            _blood.transform.localScale = _startScale;
     }
 
     // Update is called once per frame

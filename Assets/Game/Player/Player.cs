@@ -12,9 +12,10 @@ public class Player : MonoBehaviour
     Game _game;
     SpriteRenderer _spriteRenderer;
     Movement _movement;
-    DateTime _lastHit;
-    TimeSpan _hitDelay;
+    float _lastHit;
+    float _hitDelay = .5f;
     Weapon _weapon;
+    Gun _firstGun;
 
     public Sprite Standing;
     public Sprite Walking;
@@ -33,7 +34,6 @@ public class Player : MonoBehaviour
     public int BaseAmmo = 50;
     public int Ammo { get; private set; }
     public int RespawnDelay = 5;
-    public GameObject StartingGun;
     public GameObject Body;
 
     public ToastHandler ToastPanel;
@@ -47,8 +47,6 @@ public class Player : MonoBehaviour
         _spriteRenderer = Body.GetComponent<SpriteRenderer>();
         _movement = GetComponent<Movement>();
         _weapon = GetComponent<Weapon>();
-        _weapon.EquipGun(StartingGun.GetComponent<Gun>());
-        _hitDelay = new TimeSpan(0, 0, 0, 0, 500);
         Health = BaseHealth;
         Ammo = BaseAmmo;
     }
@@ -84,40 +82,42 @@ public class Player : MonoBehaviour
     public void UpgradeWeapon(Gun gun, float duration)
     {
         _weapon.EquipGun(gun);
+        if (_firstGun == null)
+            _firstGun = gun;
 
-        if(duration > 0f)
+        if (duration > 0f)
             StartCoroutine(Downgrade(duration));
+    }
 
+    public void SayPowerUp()
+    {
         _audioSource.clip = PowerUp;
         _audioSource.Play();
-
-        ToastPanel.ToastWeaponUpgrade(gun.ToastImage);
     }
 
     IEnumerator Downgrade(float duration)
     {
         yield return new WaitForSeconds(duration);
-
-        _weapon.EquipGun(StartingGun.GetComponent<Gun>());
-        //OnDowngrade();
+        OnDowngrade();
         yield break;
     }
 
     void OnDowngrade()
     {
-        ToastPanel.ToastWeaponDowngrade();
+        if(_firstGun != null)
+            _weapon.EquipGun(_firstGun, false);
     }
 
     public void TakeDamage(float damage)
     {
         if (Health <= 0) return;
 
-        var now = DateTime.Now;
+        var now = Time.time;
         if (now - _hitDelay > _lastHit)
         {
             Health -= damage;
             _lastHit = now;
-            _weapon.EquipGun(StartingGun.GetComponent<Gun>());
+            OnDowngrade();
             if (Health <= 0)
             {
                 Die();
@@ -141,7 +141,6 @@ public class Player : MonoBehaviour
 
     public void OnRespawn()
     {
-        _hitDelay = new TimeSpan(0, 0, 0, 0, 500);
         Health = BaseHealth;
         Ammo = BaseAmmo;
         transform.position = new Vector3(0, 1, -1);
@@ -164,8 +163,6 @@ public class Player : MonoBehaviour
         }
 
         Ammo += ammo;
-
-        ToastPanel.ToastAmmo();
     }
 
     public void OnShotFired(int projectileValue)
