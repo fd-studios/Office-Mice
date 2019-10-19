@@ -63,4 +63,9 @@ public class MenuHandlers : MonoBehaviour
     {
         SceneManager.LoadScene("HighScoresScene", LoadSceneMode.Single);
     }
+
+    public void About()
+    {
+        SceneManager.LoadScene("AboutScene", LoadSceneMode.Single);
+    }
 }
