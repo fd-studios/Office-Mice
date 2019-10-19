@@ -41,14 +41,9 @@ public class Mouse : Enemy
         agent.updateUpAxis = false;
     }
 
-    void ResetStats()
+    protected override void ResetStats()
     {
-        Speed = BaseSpeed * (1 + StatMultiplier / 3f);
-        Damage = BaseDamage * (1 + StatMultiplier / 3f);
-        Health = BaseHealth * (int)(1 + StatMultiplier / 3f);
-        RushIncrement = BaseRushIncrement * (1 + StatMultiplier / 3f);
-        PlayerDetectionDistance = BasePlayerDetectionDistance * (1 + StatMultiplier / 3f);
-        IsDead = false;
+        base.ResetStats();
         _stunned = false;
         _targetPlayer = false;
         _beenHit = false;
@@ -122,7 +117,9 @@ public class Mouse : Enemy
     public void TakeDamage(int damage)
     {
         if (Shot != null) Shot.Play();
+        Debug.Log($"Health:{Health}");
         Health -= damage;
+        Debug.Log($"Health:{Health}");
         rb.velocity = Vector2.zero;
         agent.speed = 0;
 
@@ -147,8 +144,6 @@ public class Mouse : Enemy
     {
         if (IsDead) return;
         Speed += RushIncrement;
-        // cap the max speed
-        if (Speed > MaxSpeed) Speed = MaxSpeed;
         if (temp) StartCoroutine(EndRush());
 
         if (Random.value < .2f)
@@ -160,7 +155,6 @@ public class Mouse : Enemy
         if (_targetPlayer) yield break;
         yield return new WaitForSeconds(5);
         Speed -= RushIncrement;
-        if (Speed < 0) Speed = 0;
         yield break;
     }
 

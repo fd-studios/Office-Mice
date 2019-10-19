@@ -358,6 +358,33 @@ MonoBehaviour:
   BaseRushIncrement: 3
   BasePlayerDetectionDistance: 3
   MaxSpeed: 15
+  MaxHealth: 300
+  MaxDamage: 30
+  Speed:
+    BaseValue: 3
+    MaxValue: 20
+    MinValue: 0
+    Increment: 3
+  Health:
+    BaseValue: 120
+    MaxValue: 500
+    MinValue: 0
+    Increment: 5
+  Damage:
+    BaseValue: 10
+    MaxValue: 30
+    MinValue: 0
+    Increment: 5
+  RushIncrement:
+    BaseValue: 3
+    MaxValue: 10
+    MinValue: 0
+    Increment: 5
+  PlayerDetectionDistance:
+    BaseValue: 3
+    MaxValue: 20
+    MinValue: 3
+    Increment: 10
   rb: {fileID: 0}
   Shot: {fileID: 0}
   chirp: {fileID: 4943502379327337037}

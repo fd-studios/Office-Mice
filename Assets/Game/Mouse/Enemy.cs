@@ -10,20 +10,24 @@ public class Enemy : MonoBehaviour
 {
     public string Name;
     public int StatMultiplier { get; set; } = 1;
-    public int BaseHealth = 120;
-    public float BaseSpeed = 3f;
-    public float BaseDamage = 10f;
-    public float BaseRushIncrement = 3f;
-    public float BasePlayerDetectionDistance = 3f;
-    public float MaxSpeed = 20f;
-    public int Health { get; protected set; }
-    public float Speed { get; protected set; }
-    public float Damage { get; set; }
-    public float RushIncrement { get; set; }
+    public AgentAttribute Speed;
+    public AgentAttribute Health;
+    public AgentAttribute Damage;
+    public AgentAttribute RushIncrement;
+    public AgentAttribute PlayerDetectionDistance;
     public bool IsDead { get; set; }
-    public float PlayerDetectionDistance { get; set; }
 
-public virtual void Kill()
+    protected virtual void ResetStats()
+    {
+        Speed.Reset(StatMultiplier);
+        Damage.Reset(StatMultiplier);
+        Health.Reset(StatMultiplier);
+        RushIncrement.Reset(StatMultiplier);
+        PlayerDetectionDistance.Reset(StatMultiplier);
+        IsDead = false;
+    }
+
+    public virtual void Kill()
     {
 
     }
