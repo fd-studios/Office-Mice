@@ -37,5 +37,6 @@ MonoBehaviour:
   m_Prefabs:
   - {fileID: 2829872429062169365, guid: b751a1c364955dd4ebffe85b67f31ab4, type: 3}
   - {fileID: 3044827121312949941, guid: 58fb2ddd1ef563c439cb6e05063877aa, type: 3}
+  - {fileID: 448590541930620395, guid: 5bad900fb4f658e4fab965e7149eaa78, type: 3}
   m_PerlinScale: 0.5
   m_Z: 0
