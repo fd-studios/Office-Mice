@@ -19536,6 +19536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Lives: 0
   GameOver: {fileID: 201669468}
+  Player: {fileID: 9094159647392373485}
 --- !u!4 &721554633
 Transform:
   m_ObjectHideFlags: 0
@@ -117857,3 +117858,9 @@ PrefabInstance:
       objectReference: {fileID: 227527089}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f72bfda5d633abc42a98f11be9d2b4f7, type: 3}
+--- !u!1 &9094159647392373485 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9094159647322337061, guid: f72bfda5d633abc42a98f11be9d2b4f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 9094159647392373484}
+  m_PrefabAsset: {fileID: 0}
