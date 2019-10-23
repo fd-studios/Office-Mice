@@ -371,9 +371,9 @@ RectTransform:
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 370, y: -250}
-  m_SizeDelta: {x: 400, y: 300}
+  m_SizeDelta: {x: -400, y: 300}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &669257514
 MonoBehaviour:
@@ -693,9 +693,9 @@ RectTransform:
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 250, y: -370}
-  m_SizeDelta: {x: 500, y: 300}
+  m_SizeDelta: {x: -300, y: 300}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1514937628
 MonoBehaviour:
@@ -728,9 +728,16 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Other Credits\n\nMusic: \nSection 31 https://s31tech.org/music-creations/\n\nGraphics
-    and SFX: \nKenney https://kenney.nl/assets\n\nSpecial Thanks to the Workspace
-    HQ team for keeping the real mice at bay, for now..."
+  m_Text: 'Other Credits
+
+    Music: Section 31 https://s31tech.org/music-creations/
+
+
+    Graphics and SFX: Kenney https://kenney.nl/assets
+
+
+    Special Thanks to the Workspace HQ team for keeping the real mice at bay, for
+    now...'
 --- !u!222 &1514937629
 CanvasRenderer:
   m_ObjectHideFlags: 0
