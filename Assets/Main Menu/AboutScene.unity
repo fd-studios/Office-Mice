@@ -406,10 +406,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Flight Deck Studios is an after-hours game dev club consisting of Flight
-    Deck engineers (Dark Phoenix, Wolverine, and Mojo Jojo)
+  m_Text: 'Flight Deck Studios is an after hours game development club consisting
+    of Flight Deck engineers (Dark Phoenix, Wolverine, and Mojo Jojo)
 
-    For correspondence, contact Eric.Vincent@Jet.com'
+    For feedback, drop a comment on #random, we''ll find you...'
 --- !u!222 &669257515
 CanvasRenderer:
   m_ObjectHideFlags: 0
