@@ -122,6 +122,10 @@ public class Player : MonoBehaviour
             {
                 Die();
             }
+            else
+            {
+                SetHurtEffect();
+            }
             if (Damage != null && Health <= 50)
             {
                 _audioSource.clip = Damage;
@@ -129,6 +133,19 @@ public class Player : MonoBehaviour
             }
             _movement.Run(1.5f, 2);
         }
+    }
+
+    void SetHurtEffect()
+    {
+        _spriteRenderer.color = new Color(1, 0, 0, 1);
+        StartCoroutine(ClearHurtEffect(0.2f));
+    }
+    
+    IEnumerator ClearHurtEffect(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        _spriteRenderer.color = new Color(1, 1, 1, 1);
+        yield break;
     }
 
     public void Die()

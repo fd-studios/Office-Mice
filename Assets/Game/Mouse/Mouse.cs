@@ -117,9 +117,7 @@ public class Mouse : Enemy
     public void TakeDamage(int damage)
     {
         if (Shot != null) Shot.Play();
-        Debug.Log($"Health:{Health}");
         Health -= damage;
-        Debug.Log($"Health:{Health}");
         rb.velocity = Vector2.zero;
         agent.speed = 0;
 
